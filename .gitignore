@@ -1,0 +1,4 @@
+*.exe
+go.mod
+Cargo.lock
+target

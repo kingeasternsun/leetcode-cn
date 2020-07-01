@@ -1,2 +1,2 @@
-# leetcode-cn
-leetcode with golang rust
+# leetcode
+leetcode的代码
