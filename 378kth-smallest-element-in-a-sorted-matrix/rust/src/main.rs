@@ -22,6 +22,10 @@ impl Solution {
         while left < right {
             mid = (left + right)/2;
 
+
+        /*
+        如果mid_value 是我们要找的那个，那么 得到的 count肯定等于 k 
+        */
             cnt = Self::less_count(&matrix, mid);
             if cnt <k{
                 left = mid+1;
@@ -35,6 +39,7 @@ impl Solution {
 
         
     }
+
 
     pub fn less_count(matrix: & Vec<Vec<i32>>, mid_value: i32)->i32 {
 
