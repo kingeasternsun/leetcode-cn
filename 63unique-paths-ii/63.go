@@ -6,7 +6,7 @@ package main
 0ms 2.6MB
 */
 
-func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+func uniquePathsWithObstacles1(obstacleGrid [][]int) int {
 	rows := len(obstacleGrid)
 	if rows == 0 {
 		return 0
@@ -94,5 +94,56 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	}
 
 	return dp[0][0]
+
+}
+
+func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+	rows := len(obstacleGrid)
+	if rows == 0 {
+		return 0
+	}
+
+	cols := len(obstacleGrid[0])
+	if cols == 0 {
+		return 0
+	}
+
+	if obstacleGrid[0][0] == 1 {
+		return 0
+	}
+
+	if obstacleGrid[rows-1][cols-1] == 1 {
+		return 0
+	}
+
+	//模拟 rows行 cols 列的dp
+	dp := make([][]int, 2)
+	dp[0] = make([]int, cols)
+	dp[1] = make([]int, cols)
+
+	dp[1][0] = 1
+	// for i := 1; i < cols; i++ {
+	// 	if obstacleGrid[0][i] == 1 {
+	// 		dp[0][i] = 0
+	// 	} else {
+	// 		dp[0][i] = dp[0][i-1]
+	// 	}
+	// }
+
+	for row := 0; row < rows; row++ {
+		preID := (row + 1) & 1
+		for col := 0; col < cols; col++ {
+			if obstacleGrid[row][col] == 1 {
+				dp[row&1][col] = 0
+			} else if col == 0 {
+				dp[row&1][col] = dp[preID][col]
+			} else {
+				dp[row&1][col] = dp[preID][col] + dp[row&1][col-1]
+			}
+		}
+
+	}
+
+	return dp[(rows-1)&1][cols-1]
 
 }
