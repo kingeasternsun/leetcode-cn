@@ -5,7 +5,7 @@ package main
 1. 计算每一行中每个元素往上的最长连续竖线长度
 2. 然后计算可以构成的最大正方形，代码中只需要记录正方形边长就可以
 */
-func maximalSquare(matrix [][]byte) int {
+func maximalSquare1(matrix [][]byte) int {
 
 	rows := len(matrix)
 	if rows == 0 {
@@ -152,4 +152,60 @@ func help2(heighs []int, rows, cols int) int {
 	}
 
 	return maxH * maxH
+}
+
+func maximalSquare(matrix [][]byte) int {
+	rows := len(matrix)
+	if rows == 0 {
+		return 0
+	}
+
+	cols := len(matrix[0])
+	if cols == 0 {
+		return 0
+	}
+
+	maxV := 0
+
+	//以当前位置的连续竖线的高度
+	hMaxtrix := make([][]int, 2)
+	hMaxtrix[0] = make([]int, cols)
+	hMaxtrix[1] = make([]int, cols)
+
+	for row := 0; row < rows; row++ {
+		preID := (row + 1) & 1
+		for col := 0; col < cols; col++ {
+			if matrix[row][col] == '0' {
+				hMaxtrix[row&1][col] = 0
+				continue
+			}
+
+			if row == 0 || col == 0 {
+				hMaxtrix[row&1][col] = 1
+
+				if maxV == 0 {
+					maxV = 1
+				}
+
+				continue
+			}
+
+			hMaxtrix[row&1][col] = min(hMaxtrix[preID][col-1], min(hMaxtrix[row&1][col-1], hMaxtrix[preID][col])) + 1
+
+			if hMaxtrix[row&1][col] > maxV {
+				maxV = hMaxtrix[row&1][col]
+			}
+
+		}
+	}
+
+	return maxV * maxV
+}
+
+func min(i, j int) int {
+	if i > j {
+		return j
+	}
+
+	return i
 }

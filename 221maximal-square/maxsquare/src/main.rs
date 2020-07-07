@@ -17,8 +17,63 @@ fn main() {
 pub struct Solution {}
 
 impl Solution {
+    //0ms 4.9MB
+    pub fn maximal_square1(matrix: Vec<Vec<char>>) -> i32 {
 
-    //相比上面的方法，这里由于 dp 使用复用行，所以为0的记得要重置为0  4ms 4.8MB
+        if (matrix.is_empty() || matrix[0].is_empty()){
+            return 0;
+        }
+
+        let (rows,cols) = (matrix.len(),matrix[0].len());
+
+        let mut dp  = vec![vec![0;cols];rows];
+        let mut max_len = 0;
+
+        for row in 0..rows{
+            for col in 0..cols{
+
+                if matrix[row][col]=='0'{
+                    continue;
+                }
+
+                if row == 0 || col ==0 {
+                    dp[row][col]=1;
+
+                    if max_len ==0 {
+                        max_len = 1;
+                    }
+
+                    continue
+                }
+
+                if dp[row][col-1] == dp[row-1][col]{
+
+                    //对角线
+                    if dp[row-1][col-1] >= dp[row][col-1]{
+                        dp[row][col]= dp[row][col-1] +1
+                    }else{
+                        dp[row][col]= dp[row][col-1]
+                    }
+
+                }else{
+                    dp[row][col] = i32::min(dp[row][col-1],dp[row-1][col])+1
+                }
+
+                if dp[row][col]>max_len{
+                    max_len = dp[row][col]
+                }
+
+
+            }
+        }
+
+
+
+        max_len*max_len
+    }
+
+
+    //相比上面的方法，这里由于 dp 使用复用行，所以为0的记得要重置为0 
     pub fn maximal_square(matrix: Vec<Vec<char>>) -> i32 {
 
         if matrix.is_empty() || matrix[0].is_empty(){

@@ -7,14 +7,15 @@ use std::collections::HashMap;
 #[derive(Default)]
 struct Trie {
     is_end: bool,
-    // nodes: HashMap<usize,Box<Trie>>,
-    nodes: HashMap<usize,Trie>, //36ms 11.6MB
+    nodes: HashMap<usize,Box<Trie>>,
+    // nodes: HashMap<usize,Trie>, //36ms 11.6MB
 }
 
 /**
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
+//32ms 10.9MB
 impl Trie {
     /** Initialize your data structure here. */
     fn new() -> Self {
@@ -27,7 +28,7 @@ impl Trie {
 
         for i in word.chars().map(|ch| (ch as u8 - 'a' as u8) as usize) {
 
-            let next_node = curr.nodes.entry(i).or_insert_with(||Trie::new());
+            let next_node = curr.nodes.entry(i).or_insert_with(||Box::new(Trie::new()));
 
             curr = next_node
         }
