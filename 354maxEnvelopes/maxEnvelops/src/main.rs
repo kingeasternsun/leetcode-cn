@@ -8,7 +8,7 @@ fn main() {
 pub struct Solution {}
 
 impl Solution {
-    pub fn max_envelopes(mut envelopes: Vec<Vec<i32>>) -> i32 {
+    pub fn max_envelopesdp(mut envelopes: Vec<Vec<i32>>) -> i32 {
         if envelopes.len() <= 1 {
             return envelopes.len() as i32;
         }
@@ -43,5 +43,45 @@ impl Solution {
         }
 
         max_ens
+    }
+
+    pub fn max_envelopes(mut envelopes: Vec<Vec<i32>>) -> i32 {
+        if envelopes.len() <= 1 {
+            return envelopes.len() as i32;
+        }
+
+        // 经过排序后，后面的信封肯定不可能装入到前面的信封中
+        envelopes.sort_by(|a, b|  if a[0]==b[0] { return b[1].cmp(&a[1]) } else { a[0].cmp(&b[0]) } );
+
+      
+        let mut top = Vec::new();
+
+
+        for i in 0..envelopes.len() {
+
+            let mut beg = 0;
+            let mut end = top.len();
+
+            while beg < end{
+                let mid = (beg+end)/2;
+
+                if top[mid] < envelopes[i][1]{
+                    beg = mid+1;
+                }else{
+                    end = mid;
+                }
+
+            }
+
+            // 找不到大于等于 envelopes[i][1] 的，那么就新建一个
+            if beg == top.len(){
+                top.push( envelopes[i][1])
+            }else{
+                top[beg] = envelopes[i][1]
+            }
+
+        }
+
+        top.len() as i32
     }
 }

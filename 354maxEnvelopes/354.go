@@ -20,7 +20,7 @@ func main() {
 2. dp[i] 表示第i个信封中最多可以装多少个
 3. dp[i] = max( dp[j] +1)  where j < i , and i.width >j.width ,i.height > j.height
 */
-func maxEnvelopes(envelopes [][]int) int {
+func maxEnvelopesdp(envelopes [][]int) int {
 
 	if len(envelopes) <= 1 {
 		return len(envelopes)
@@ -59,5 +59,51 @@ func maxEnvelopes(envelopes [][]int) int {
 	}
 
 	return maxEvs
+
+}
+
+func maxEnvelopes(envelopes [][]int) int {
+
+	if len(envelopes) <= 1 {
+		return len(envelopes)
+	}
+
+	sort.Slice(envelopes, func(i, j int) bool {
+
+		if envelopes[i][0] == envelopes[j][0] {
+			return envelopes[i][1] > envelopes[j][1]
+		}
+
+		return envelopes[i][0] < envelopes[j][0]
+
+	})
+
+	// https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-she-ji-fang-fa-zhi-pai-you-xi-jia/
+
+	top := make([]int, 0)
+
+	for _, ev := range envelopes {
+
+		start := 0
+		end := len(top)
+		for start < end {
+			mid := (start + end) / 2
+			if top[mid] < ev[1] { //这里注意是 小于 ，表面我们是要搜索 大于等于 ev[1]的元素
+				start = mid + 1
+			} else {
+				end = mid
+			}
+
+		}
+
+		if start == len(top) {
+			top = append(top, ev[1])
+		} else {
+			top[start] = ev[1]
+		}
+
+	}
+
+	return len(top)
 
 }
