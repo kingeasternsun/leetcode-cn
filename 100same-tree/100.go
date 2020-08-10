@@ -1,9 +1,6 @@
 package main
 
 //https://leetcode-cn.com/problems/same-tree/
-func main() {
-
-}
 
 //  * Definition for a binary tree node.
 type TreeNode struct {
