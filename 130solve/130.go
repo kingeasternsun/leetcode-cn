@@ -1,6 +1,5 @@
 package main
 
-
 /*
 	- 将O的链接起来, 链接的时候，如果一个组在边界，两外一个组就链接到这个组上
 	- 如果一个组的根是在边界，也就是dumpPos，那么就不能填充
@@ -96,5 +95,4 @@ func solve(board [][]byte) {
 	return
 }
 
-
-https://leetcode-cn.com/problems/surrounded-regions/solution/24ms6mb-he-bing-ji-he-jie-jue-130-bei-wei-rao-de-q/
+// https://leetcode-cn.com/problems/surrounded-regions/solution/24ms6mb-he-bing-ji-he-jie-jue-130-bei-wei-rao-de-q/
