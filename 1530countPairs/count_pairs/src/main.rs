@@ -27,7 +27,7 @@ use std::rc::Rc;
 impl Solution {
     pub fn count_pairs(root: Option<Rc<RefCell<TreeNode>>>, distance: i32) -> i32 {
         let mut sum = 0;
-        if distance <= 2 {
+        if distance < 2 {
             return 0;
         }
 
