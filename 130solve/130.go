@@ -35,7 +35,7 @@ func uniZip(father []int, i, j, dumpPos int) int {
 	return 1
 }
 
-func solve(board [][]byte) {
+func solve1(board [][]byte) {
 
 	m := len(board)
 	if m == 0 {
@@ -96,3 +96,168 @@ func solve(board [][]byte) {
 }
 
 // https://leetcode-cn.com/problems/surrounded-regions/solution/24ms6mb-he-bing-ji-he-jie-jue-130-bei-wei-rao-de-q/
+
+/*
+ 利用bfs遍历 ，申请内存错误
+*/
+func solve2(board [][]byte) {
+
+	rows := len(board)
+	if rows == 0 {
+		return
+	}
+
+	cols := len(board[0])
+	visited := make([]bool, rows*cols)
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+
+			if board[r][c] == 'O' && (!visited[r*cols+c]) {
+				atsize, points := bfs2(board, visited, r*cols+c, rows, cols)
+				if !atsize {
+					fill(board, points, cols)
+				}
+
+			}
+
+		}
+	}
+}
+
+/*
+atside 是否包含边界
+points 遍历得到的点
+*/
+func bfs2(board [][]byte, visited []bool, start int, rows, cols int) (atside bool, points []int) {
+	atside = false
+	cur := []int{start}
+	for len(cur) > 0 {
+
+		new := make([]int, 0)
+		for _, point := range cur {
+			visited[point] = true
+
+			if !atside {
+				points = append(points, point) //记录用于填充
+			}
+
+			crow := point / cols
+			ccol := point % cols
+			if crow == 0 || crow == rows-1 || ccol == 0 || ccol == cols-1 {
+				atside = true
+			}
+
+			//向左边
+			if ccol > 0 && (!visited[crow*cols+(ccol-1)]) && board[crow][ccol-1] == 'O' {
+				new = append(new, crow*cols+(ccol-1))
+			}
+			//向右边
+			if ccol < cols-1 && (!visited[crow*cols+(ccol+1)]) && board[crow][ccol+1] == 'O' {
+				new = append(new, crow*cols+(ccol+1))
+			}
+
+			//向下
+			if crow < rows-1 && (!visited[(crow+1)*cols+ccol]) && board[crow+1][ccol] == 'O' {
+				new = append(new, (crow+1)*cols+ccol)
+			}
+
+			//向上
+			if crow > 0 && (!visited[(crow-1)*cols+ccol]) && board[crow-1][ccol] == 'O' {
+				new = append(new, (crow-1)*cols+ccol)
+			}
+
+		}
+
+		cur = new
+
+	}
+
+	return
+}
+
+func fill(board [][]byte, points []int, cols int) {
+
+	for _, point := range points {
+		board[point/cols][point%cols] = 'X'
+	}
+
+	return
+}
+
+/*
+将边界的O相连的O先变为Y
+*/
+func dfs(board [][]byte, start int, rows, cols int) {
+	cur := []int{start}
+	board[start/cols][start%cols] = 'Y'
+	dir := []int{0, 1, 0, -1, 0}
+	for len(cur) > 0 {
+
+		// visited[point] = true
+		point := cur[0]
+		cur = cur[1:]
+		crow := point / cols
+		ccol := point % cols
+
+		for i := 0; i < 4; i++ {
+			newr := crow + dir[i]
+			newc := ccol + dir[i+1]
+
+			if 0 <= newr && newr < rows && 0 <= newc && newc < cols && board[newr][newc] == 'O' {
+				cur = append(cur, newr*cols+newc)
+				board[newr][newc] = 'Y'
+			}
+		}
+
+	}
+
+	return
+}
+
+/*
+只能dfs，bfs会alloc fail
+*/
+func solve(board [][]byte) {
+
+	rows := len(board)
+	if rows == 0 {
+		return
+	}
+
+	cols := len(board[0])
+	// visited := make([]bool, rows*cols)
+
+	//将边界的O相连的O先变为Y,变为Y，同时也标记了这个点被访问过
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+
+			if (r == 0 || r == rows-1 || c == 0 || c == cols-1) && board[r][c] == 'O' {
+				dfs(board, r*cols+c, rows, cols)
+			}
+
+		}
+	}
+
+	//剩余的O变为X
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+
+			if board[r][c] == 'O' {
+				board[r][c] = 'X'
+			}
+
+		}
+	}
+
+	//剩余的Y变为O
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+
+			if board[r][c] == 'Y' {
+				board[r][c] = 'O'
+			}
+
+		}
+	}
+	return
+}
