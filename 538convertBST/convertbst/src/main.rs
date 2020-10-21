@@ -39,7 +39,7 @@ impl Solution {
             Self::sum(cur_root.borrow().left.clone(), cur_sum);
 
         }else{
-            return 
+            return
         }
     }
 }
