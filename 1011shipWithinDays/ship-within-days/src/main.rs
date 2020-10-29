@@ -1,17 +1,13 @@
 fn main() {
     println!("Hello, world!");
-    print!("{}\n", Solution::split_array(vec![7, 2, 5, 10, 8], 2));
-    print!("{}\n", Solution::split_array(vec![1, 4, 4], 3));
 }
-
 pub struct Solution;
-
 impl Solution {
     /*
     二分法，转为是否存在一个threshold，连续子数组的和 不大于 threadhold 的情况下，分为 m 个
-    0ms 2MB 
+    12ms 2.5MB  //跟410题型一样 
     */
-    pub fn split_array(nums: Vec<i32>, m: i32) -> i32 {
+    pub fn ship_within_days(nums: Vec<i32>, m: i32) -> i32 {
         if nums.len() < m as usize {
             return 0;
         }
