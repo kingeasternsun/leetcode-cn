@@ -28,9 +28,11 @@ impl Solution {
         }
         // print!("{}\n", std::i32::MAX);
 
-        let mut left = 1;
         let mut right = *piles.iter().max().unwrap();
         // print!("max {}\n", right);
+
+        let sum: u64 = piles.iter().map(|&x| x as u64).sum();
+        let mut left = (sum / h as u64) as i32 + if sum % h as u64 == 0 { 0 } else { 1 } as i32;
 
         let mut mid;
 
