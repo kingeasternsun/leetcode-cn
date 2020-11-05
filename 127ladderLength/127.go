@@ -251,3 +251,5 @@ func bbfs(beginWord string, endWord string, wordList []string) int {
 	return 0
 
 }
+
+//TODO 二分法
