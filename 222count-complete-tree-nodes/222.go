@@ -6,6 +6,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+//12MS
 func countNodesBiSearch(root *TreeNode) int {
 
 	h := getDepth(root)
@@ -52,7 +53,7 @@ func getNodeID(root *TreeNode, h uint) uint {
 	var start uint = 0
 	for start >= 0 && start < end {
 
-		mid := (start + end) / 2
+		mid := (end-start+1)/2 + start
 		// fmt.Println("mid", mid)
 		if !exist(root, mid, h) {
 			end = mid - 1
@@ -60,13 +61,13 @@ func getNodeID(root *TreeNode, h uint) uint {
 		}
 
 		//mid找得到
-		if start == end-1 {
-			if exist(root, end, h) {
-				return end
-			}
+		// if start == end-1 {
+		// 	if exist(root, end, h) {
+		// 		return end
+		// 	}
 
-			return start
-		}
+		// 	return start
+		// }
 
 		start = mid
 
