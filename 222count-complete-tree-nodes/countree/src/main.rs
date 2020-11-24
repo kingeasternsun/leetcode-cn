@@ -24,6 +24,7 @@ impl TreeNode {
 
 use std::rc::Rc;
 use std::cell::RefCell;
+
 impl Solution {
     pub fn count_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
 
@@ -82,21 +83,13 @@ impl Solution {
 
         while start>=0 && start< end{
 
-            let mid = (start+end)/2;
+            let mid = (end  - start+1)/2+start;
 
             if !Self::exist(root.clone(),mid, h){
                 end = mid-1;
                 continue;
             }
 
-            if start == end -1{
-
-                if Self::exist(root.clone(),end, h){
-                    return end
-                }
-
-                return start
-            }
 
             start = mid;
 
