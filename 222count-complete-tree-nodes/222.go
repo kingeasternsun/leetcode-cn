@@ -21,6 +21,12 @@ func countNodesBiSearch(root *TreeNode) int {
 	return (1 << (h - 1)) + int(nodeID)
 }
 
+/*
+		  001
+
+	010  		011
+100    101    110	111 //这一层，最左边也就是最高位肯定是一，然后从从左到右，就对应从上到下的节点遍历
+*/
 func exist(root *TreeNode, id uint, h uint) bool {
 
 	h = h - 1
