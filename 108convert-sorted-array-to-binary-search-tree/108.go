@@ -19,17 +19,17 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func sortedArrayToBST(nums []int) *TreeNode {
+func sortedArrayToBST1(nums []int) *TreeNode {
 
 	nLen := len(nums)
 	if nLen == 0 {
 		return nil
 	}
 
-	return sortToBST(nums, 0, nLen-1)
+	return sortToBST1(nums, 0, nLen-1)
 }
 
-func sortToBST(nums []int, beg, end int) *TreeNode {
+func sortToBST1(nums []int, beg, end int) *TreeNode {
 
 	mid := (beg + end) / 2
 	if (end-beg)%2 == 1 {
@@ -46,14 +46,55 @@ func sortToBST(nums []int, beg, end int) *TreeNode {
 	}
 
 	if mid-1 >= beg {
-		root.Left = sortToBST(nums, beg, mid-1)
+		root.Left = sortToBST1(nums, beg, mid-1)
 
 	}
 
 	if mid+1 <= end {
-		root.Right = sortToBST(nums, mid+1, end)
+		root.Right = sortToBST1(nums, mid+1, end)
 
 	}
+
+	return root
+
+}
+
+func sortedArrayToBST(nums []int) *TreeNode {
+
+	// if len(nums)==0{
+	// 	return
+	// }
+
+	return sortToBST(nums)
+}
+func sortToBST(nums []int) *TreeNode {
+
+	if len(nums) == 0 {
+		return nil
+	}
+	// fmt.Println(beg, mid, end)
+
+	mid := len(nums) / 2
+	root := &TreeNode{
+		Val: nums[len(nums)/2],
+	}
+
+	if len(nums) == 1 {
+		return root
+	}
+
+	root.Left = sortToBST(nums[0:mid])
+	root.Right = sortToBST(nums[mid+1 : len(nums)])
+
+	// if mid > 0 {
+	// 	root.Left = sortToBST(nums[0:mid])
+
+	// }
+
+	// if mid+1 <= end {
+	// 	root.Right = sortToBST(nums, mid+1, end)
+
+	// }
 
 	return root
 
