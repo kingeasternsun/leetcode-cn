@@ -1,8 +1,4 @@
-package main
-
-func main() {
-
-}
+package leetcode
 
 //300. 最长上升子序列  https://leetcode-cn.com/problems/longest-increasing-subsequence/
 
@@ -44,7 +40,9 @@ func lengthOfLIS1(nums []int) int {
 
 //https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/
 /*
-n*logn  dp【i】记录的是 长度为i+1的上升字串的最后一个数字，使用贪心算法，维护最后一个数字要最小的
+n*logn
+dp【i】记录的是 长度为i+1的上升子串的最小的最后一个数字，使用贪心算法，在每次迭代中，维护这个数字最小
+并且保持dp的值是单调递增的，可用反证法证明
 */
 func lengthOfLIS(nums []int) int {
 
@@ -52,53 +50,45 @@ func lengthOfLIS(nums []int) int {
 	if count <= 1 {
 		return count
 	}
+	dp := make([]int, len(nums))
+	//dp初始化
+	maxLen := 1     //当前已经知道的最长递增数字串 为1
+	dp[0] = nums[0] //当前长度为1的递增数字串的最后一个数字是nums[0]
 
-	dp := make([]int, count+1)
-	dp[1] = nums[0] //看第一个字符 ，当前长度为1的字串的最后一个数字就是nums【0】
-	maxLen := 1
-	for i := 1; i < count; i++ {
+	//从第二个数字开始
+	for _, v := range nums[1:] {
 
-		if nums[i] <= dp[1] { //如果比长度为一的尾号数字（其实也就是数组当前的最小值）还要小 或相等
-			dp[1] = nums[i]
-			continue
-		}
-
-		//等于当前最长子序列的最后一个数字
-		if nums[i] == dp[maxLen] {
-			continue
-		}
-
-		//大于当前最长子序列的最后一个数字
-		if nums[i] > dp[maxLen] {
+		//因为是严格递增序列 在dp[:maxLen]里面查询 子序列中最后一个数字大于等于v 且子串长度最短的dp进行替换，保证 dp[i]中记录的是最小的数字
+		tmpID := biSearch(dp[0:maxLen], v)
+		if tmpID == maxLen { //v 比 dp里面的都大，就可以新开一个子序列
+			dp[maxLen] = v
 			maxLen++
-			dp[maxLen] = nums[i]
-			continue
+		} else {
+			dp[tmpID] = v
 		}
 
-		dp[biFind(dp[1:], maxLen, nums[i])+1] = nums[i]
 	}
 
 	return maxLen
 
 }
 
-// 要查找大于等于value的 最小数
-func biFind(dp []int, num int, value int) int {
+//在dp中查找大于等于v的位置的最小索引
+func biSearch(dp []int, v int) int {
 
-	beg := 0
-	end := num - 1
+	left := 0
+	right := len(dp) //这里巧妙的在于 right 用 len(dp)而不是len(dp)-1，因为每次for循环里面是直接取平均值的，所以没有问题，而且可以处理v比dp里面都大的情况
 
-	for beg < end {
+	for left < right {
 
-		mid := (beg + end) / 2
-
-		if dp[mid] < value { // 如果要求非严格递增，将此行 '<' 改为 '<=' 即可。
-			beg = mid + 1
+		mid := (left + right) / 2
+		if dp[mid] >= v {
+			right = mid
 		} else {
-			end = mid
+			left = mid + 1
 		}
-	}
 
-	return beg
+	}
+	return left
 
 }

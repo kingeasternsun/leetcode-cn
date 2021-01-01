@@ -56,10 +56,6 @@ func postorderTraversal2(root *TreeNode) []int {
 }
 
 /*  参考
-使用颜色标记节点的状态，新节点为白色，已访问的节点为灰色。
-如果遇到的节点为白色，则将其标记为灰色，然后将其右子节点、自身、左子节点依次入栈。
-如果遇到的节点为灰色，则将节点的值输出。
-
 作者：hzhu212
 链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/yan-se-biao-ji-fa-yi-chong-tong-yong-qie-jian-ming/
 来源：力扣（LeetCode）
@@ -70,6 +66,11 @@ type Node struct {
 	color bool // true 表示访问 ，false表示没有访问
 }
 
+/*
+使用颜色标记节点的状态，新节点为白色，已访问的节点为灰色。
+如果遇到的节点为白色，则将其标记为灰色，然后将其右子节点、自身、左子节点依次入栈。
+如果遇到的节点为灰色，则将节点的值输出。
+*/
 func postorderTraversal(root *TreeNode) []int {
 
 	if root == nil {

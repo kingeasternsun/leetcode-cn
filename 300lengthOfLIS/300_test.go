@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \leetcode\300\300_test.go
  */
-package main
+package leetcode
 
 import "testing"
 
