@@ -69,7 +69,8 @@ func maxResult(nums []int, k int) int {
 		}
 
 		monoQueue = append(monoQueue, tmpV)
-		// 如果当前sliding的大小超过了k，就需要从dp中剔除左边的一个,时刻让sliding窗口的大小最大为k,所以每次只需要剔除滑窗左边的一个(也就是i-k位置上的那个)就可以了
+		// 如果当前sliding的大小超过了k，就需要从dp中剔除左边的一个,时刻让sliding窗口的大小最大为k,
+		// 所以每次只需要剔除滑窗左边的一个(也就是i-k位置上的那个)就可以了
 		if i >= k {
 			//如果dp[i-k]刚好是最大值 ,monoQueue也需要移除左边的最大值
 			if dp[i-k] == monoQueue[0] {
