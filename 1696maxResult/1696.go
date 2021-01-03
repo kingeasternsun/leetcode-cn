@@ -4,7 +4,7 @@ package leetcode
 
 import "math"
 
-//dp
+//dp 超时
 func maxResult_timeout(nums []int, k int) int {
 
 	if len(nums) == 0 {
