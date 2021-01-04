@@ -59,32 +59,26 @@ func sumNumbers(root *TreeNode) int {
 		return 0
 	}
 
-	// curSum := 0
-	sum := 0
-	help(root, 0, &sum)
-	return sum
+	totalSum := 0
+	help(root, root.Val, &totalSum)
+	return totalSum
+
 }
 
-// curNum表示从根节点到当前节点cur 的父节点 所组成路径的数字,不包含当前节点
-func help(cur *TreeNode, curNum int, sum *int) {
+// cur表示当前子节点，curNumber 表示从根节点到当前节点组成的数字，totalSum表示当前的数字之和
+func help(cur *TreeNode, curNumber int, totalSum *int) {
 
-	// if cur == nil {
-	// 	*sum = curNum
-	// 	return
-	// }
-
-	curNum = curNum*10 + cur.Val
-	if cur.Left == nil && cur.Right == nil { //如果当前时叶子节点
-		*sum = *sum + curNum
+	//到达叶子节点
+	if cur.Left == nil && cur.Right == nil {
+		*totalSum = *totalSum + curNumber
 		return
 	}
 
 	if cur.Left != nil {
-		help(cur.Left, curNum, sum)
+		help(cur.Left, curNumber*10+cur.Left.Val, totalSum)
 	}
 
 	if cur.Right != nil {
-		help(cur.Right, curNum, sum)
+		help(cur.Right, curNumber*10+cur.Right.Val, totalSum)
 	}
-
 }
