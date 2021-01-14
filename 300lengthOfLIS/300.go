@@ -1,5 +1,7 @@
 package leetcode
 
+import "sort"
+
 //300. 最长上升子序列  https://leetcode-cn.com/problems/longest-increasing-subsequence/
 
 /*
@@ -59,7 +61,8 @@ func lengthOfLIS(nums []int) int {
 	for _, v := range nums[1:] {
 
 		//因为是严格递增序列 在dp[:maxLen]里面查询 子序列中最后一个数字大于等于v 且子串长度最短的dp进行替换，保证 dp[i]中记录的是最小的数字
-		tmpID := biSearch(dp[0:maxLen], v)
+		// tmpID := biSearch(dp[0:maxLen], v)
+		tmpID := sort.SearchInts(dp[0:maxLen], v)
 		if tmpID == maxLen { //v 比 dp里面的都大，就可以新开一个子序列
 			dp[maxLen] = v
 			maxLen++
