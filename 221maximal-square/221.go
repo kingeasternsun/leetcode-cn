@@ -154,7 +154,7 @@ func help2(heighs []int, rows, cols int) int {
 	return maxH * maxH
 }
 
-func maximalSquare(matrix [][]byte) int {
+func maximalSquare2(matrix [][]byte) int {
 	rows := len(matrix)
 	if rows == 0 {
 		return 0
@@ -208,4 +208,85 @@ func min(i, j int) int {
 	}
 
 	return i
+}
+
+/*
+1. 记录每个点作为右下节点的最大正方形边长 dp
+2. 记录每个点往上的最大连续边长   his
+3. dp[i]=min(dp[i+1], ...)
+*/
+func maximalSquare(matrix [][]byte) int {
+
+	if len(matrix) == 0 {
+		return 0
+	}
+
+	rows := len(matrix)
+	cols := len(matrix[0])
+	if cols == 0 {
+		return 0
+	}
+
+	res := 0
+	dp := make([]int, cols)  //记录每个点作为右下节点的最大正方形边长 dp
+	his := make([]int, cols) //记录每个点往上的最大连续边长   his
+
+	for rowID := 0; rowID < rows; rowID++ {
+
+		for colID := 0; colID < cols; colID++ {
+
+			if matrix[rowID][colID] == '0' {
+				dp[colID] = 0
+				his[colID] = 0
+				continue
+			}
+
+			// 到这里，当前点肯定是 1
+			// 计算当前点为起点的向上长度
+			his[colID]++
+			//计算以当前点为右下点的正方形边长
+			if colID == 0 {
+				dp[colID] = 1
+				res = max(res, 1)
+				continue
+			}
+
+			//如果当前点往上的最大边长 小于等于前一个点的正方形边长,那么以当前点为右下点的正方形的边长就是 his[colID]
+			if his[colID] <= dp[colID-1] {
+				dp[colID] = his[colID]
+				// res = max(res, dp[colID])
+				continue
+			}
+
+			hasZero := false
+			//判断上面一层是否都为‘1’
+			for i := colID - dp[colID-1]; i < colID; i++ {
+
+				if matrix[rowID-dp[colID-1]][i] == '0' {
+					hasZero = true
+					break
+				}
+			}
+
+			if hasZero {
+				dp[colID] = dp[colID-1]
+			} else {
+				dp[colID] = dp[colID-1] + 1
+			}
+
+			res = max(res, dp[colID])
+
+		}
+	}
+
+	return res * res
+
+}
+
+func max(i, j int) int {
+	if i > j {
+		return i
+	}
+
+	return j
 }
