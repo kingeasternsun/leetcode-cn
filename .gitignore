@@ -4,3 +4,4 @@ Cargo.lock
 target
 *.vscode
 Cargo.toml
+go.sum
