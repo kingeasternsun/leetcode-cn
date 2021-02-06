@@ -1,3 +1,12 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2021-02-02 12:21:31
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-03 10:22:30
+ * @FilePath: \1493longestSubarray\1493_test.go
+ */
 package leetcode
 
 import "testing"
@@ -22,6 +31,9 @@ func Test_longestSubarray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := longestSubarray(tt.args.nums); got != tt.want {
+				t.Errorf("longestSubarray() = %v, want %v", got, tt.want)
+			}
+			if got := longestSubarrayBinary(tt.args.nums); got != tt.want {
 				t.Errorf("longestSubarray() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,3 +1,12 @@
+/*
+ * @Description:二分加滑窗解决
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2021-02-02 09:10:08
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-03 10:12:40
+ * @FilePath: \424characterReplacement\424.go
+ */
 package leetcode
 
 /*
@@ -15,30 +24,18 @@ func characterReplacement(s string, k int) int {
 
 	sb := []byte(s)
 	start := k
+	best := -1
 	end := len(s)
-	for start < end {
-
-		//不处理 就会死循环  start=3,end=4;得到 mid = 3; 然后judge为true，start又变成了3
-		if end == start+1 {
-			if judge(sb, end, k) {
-				return end
-			}
-
-			if judge(sb, start, k) {
-				return start
-			}
-
-		}
-
+	for start <= end {
 		mid := (end-start)/2 + start
 		if judge(sb, mid, k) {
-			start = mid
+			best, start = mid, mid+1
 		} else {
 			end = mid - 1
 		}
 	}
 
-	return start
+	return best
 
 }
 

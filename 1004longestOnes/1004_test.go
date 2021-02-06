@@ -1,3 +1,12 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2021-02-02 10:29:37
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-03 10:25:36
+ * @FilePath: \1004longestOnes\1004_test.go
+ */
 package leetcode
 
 import (
@@ -21,6 +30,9 @@ func Test_longestOnes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := longestOnes(tt.args.A, tt.args.K); got != tt.want {
+				t.Errorf("longestOnes() = %v, want %v", got, tt.want)
+			}
+			if got := longestOnesBinary(tt.args.A, tt.args.K); got != tt.want {
 				t.Errorf("longestOnes() = %v, want %v", got, tt.want)
 			}
 		})

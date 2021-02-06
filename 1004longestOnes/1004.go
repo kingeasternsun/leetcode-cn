@@ -1,7 +1,17 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2021-02-02 10:12:30
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-03 10:26:57
+ * @FilePath: \1004longestOnes\1004.go
+ */
 package leetcode
 
 /*
- 相似题目 424. 替换后的最长重复字符
+ 相似题目 424,1493,1004.
+ 替换后的最长重复字符
  利用二分法加滑窗
 */
 func longestOnesBinary(A []int, K int) int {
@@ -11,25 +21,18 @@ func longestOnesBinary(A []int, K int) int {
 
 	start := K
 	end := len(A)
-	for start < end {
-		if start == end-1 {
-			if judege(A, end, K) {
-				return end
-			}
-			if judege(A, start, K) {
-				return start
-			}
-		}
+	best := -1
+	for start <= end {
 
 		mid := (end-start)/2 + start
 		if judege(A, mid, K) {
-			start = mid
+			best, start = mid, mid+1
 		} else {
 			end = mid - 1
 		}
 
 	}
-	return start
+	return best
 }
 
 func judege(A []int, winLen, K int) bool {
@@ -67,18 +70,8 @@ func longestOnes(A []int, K int) int {
 	start, end := 0, 0 //左闭，右开区间，包含start,不包含end
 	maxLen := 0
 	for start <= end && end < len(A) {
-		//要加的end是1，可以继续加
-		if A[end] == 1 {
-			numCnt[1]++
-			end++
-			if end-start > maxLen {
-				maxLen = end - start
-			}
-			continue
-		}
-
-		//要加入的是0， 而且目前窗口中0 的数量还小于 K，可以继续加 0
-		if numCnt[0] < K {
+		//要加的end是1，可以继续加 或 要加入的是0， 而且目前窗口中0 的数量还小于 K，可以继续加 0
+		if A[end] == 1 || numCnt[0] < K {
 			numCnt[A[end]]++
 			end++
 			if end-start > maxLen {
