@@ -1,4 +1,13 @@
-fn main() {
+/*
+ * @Description: 
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2021-01-24 16:17:56
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-10 15:57:49
+ * @FilePath: /min-eating-speed/src/main.rs
+ */
+·fn main() {
     println!("Hello, world!");
     // print!("{}\n",Solution::min_eating_speed(vec![3,6,7,11], 8));
     // print!("{}\n",Solution::min_eating_speed(vec![30,11,23,4,20],5));
@@ -29,6 +38,7 @@ impl Solution {
         // print!("{}\n", std::i32::MAX);
 
         let mut right = *piles.iter().max().unwrap();
+        
         // print!("max {}\n", right);
 
         let sum: u64 = piles.iter().map(|&x| x as u64).sum();
