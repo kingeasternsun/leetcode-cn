@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-01-24 16:17:56
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-10 15:57:49
+ * @LastEditTime: 2021-02-13 09:18:19
  * @FilePath: /min-eating-speed/src/main.rs
  */
 ·fn main() {
@@ -37,7 +37,10 @@ impl Solution {
         }
         // print!("{}\n", std::i32::MAX);
 
+
+
         let mut right = *piles.iter().max().unwrap();
+        
         
         // print!("max {}\n", right);
 
