@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-02-07 09:18:33
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-07 11:46:28
+ * @LastEditTime: 2021-02-07 14:17:10
  * @FilePath: \665checkPossibility\665.go
  */
 package leetcode
