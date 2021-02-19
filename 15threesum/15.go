@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2020-07-01 12:44:30
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-19 11:54:00
+ * @LastEditTime: 2021-02-19 18:07:02
  * @FilePath: \15threesum\15.go
  */
 package leetcode
@@ -86,13 +86,6 @@ func threeSum1(nums []int) [][]int {
 }
 
 /*
-给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
-
-注意：答案中不可以包含重复的三元组。
-
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/3sum
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 参考 花花酱 的讲解视频
 */
 
@@ -122,7 +115,8 @@ func threeSumHash(nums []int) [][]int {
 				continue
 			}
 
-			//判断 是否有c 而且c的数量足够.这里比较关键，不能只判断 cntMap中是否存在c，而且要考虑 nums[i] nums[j]也有可能是c 0+0+0 = 0
+			//判断 是否有c 而且c的数量足够.这里比较关键，不能只判断 cntMap中是否存在c，
+			//而且要考虑 nums[i] nums[j]也有可能是c 0+0+0 = 0
 			cnt := 1
 			if nums[i] == c {
 				cnt++
@@ -136,6 +130,52 @@ func threeSumHash(nums []int) [][]int {
 
 			res = append(res, []int{nums[i], nums[j], c})
 
+		}
+
+	}
+
+	return res
+
+}
+
+/*
+滑窗做法
+*/
+func threeSum(nums []int) [][]int {
+
+	res := make([][]int, 0)
+	sort.Ints(nums)
+
+	for i := range nums {
+		if i > 0 && nums[i] == nums[i-1] { //去重
+			continue
+		}
+
+		//开始进行滑窗
+		// nums[i]<=nums[j]<=nums[k] 因为nums排好顺序了，只要 j 从i+1开始
+		j, k := i+1, len(nums)-1
+		for j < k {
+			if nums[j]+nums[k] < -nums[i] {
+				j++
+				continue
+			}
+			if nums[j]+nums[k] > -nums[i] {
+				k--
+				continue
+			}
+
+			res = append(res, []int{nums[i], nums[j], nums[k]})
+			//去重
+			for j < k && nums[j] == nums[j+1] {
+				j++
+			}
+			j++
+			//去重
+			for j < k && nums[k] == nums[k-1] {
+				k--
+			}
+
+			k--
 		}
 
 	}

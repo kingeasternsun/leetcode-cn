@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2020-07-01 12:44:30
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-19 11:58:03
+ * @LastEditTime: 2021-02-19 16:51:25
  * @FilePath: \15threesum\15_test.go
  */
 
@@ -39,6 +39,10 @@ func Test_threeSumHash(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := threeSumHash(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("threeSumHash() = %v, want %v", got, tt.want)
+			}
+
+			if got := threeSum(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("threeSum() = %v, want %v", got, tt.want)
 			}
 		})
 	}

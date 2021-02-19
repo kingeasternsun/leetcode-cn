@@ -4,12 +4,12 @@
  * @Author: kingeasternsun
  * @Date: 2021-02-06 10:24:45
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-06 11:07:35
+ * @LastEditTime: 2021-02-19 19:06:40
  * @FilePath: \1528restoreString\1528.go
  */
 package leetcode
 
-func restoreString(s string, indices []int) string {
+func restoreString1(s string, indices []int) string {
 	in := []byte(s)
 
 	for i := 0; i < len(in); i++ {
@@ -32,6 +32,29 @@ func restoreString(s string, indices []int) string {
 		//当前i的位置要用最新的ch来填充
 		in[i] = ch
 		indices[i] = i
+	}
+
+	return string(in)
+}
+func restoreString(s string, indices []int) string {
+	in := []byte(s)
+
+	i := 0
+	for i < len(in) {
+
+		//位置没变就不用动
+		if indices[i] == i {
+			i++
+			continue
+		}
+
+		rightPos := indices[i]
+		//互换
+		in[i], in[rightPos] = in[rightPos], in[i]
+
+		//更新对应的 indices
+		indices[i], indices[rightPos] = indices[rightPos], rightPos
+
 	}
 
 	return string(in)
