@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-02-23 17:12:38
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-23 18:09:39
+ * @LastEditTime: 2021-02-23 19:25:11
  * @FilePath: \1300findBestValue\1300.go
  */
 package leetcode
@@ -34,9 +34,9 @@ func findBestValue(arr []int, target int) int {
 	}
 
 	res, diff := 0, target
-	for i := arr[0] - 1; i <= arr[len(arr)-1]; i++ {
+	for i := 0; i <= arr[len(arr)-1]; i++ {
 		id := sort.SearchInts(arr, i+1) //查询比i大的
-		sum := (len(arr) - id) * i
+		sum := (len(arr) - id) * i      //arr[id..]都变为 i
 		if id > 0 {
 			sum += preSum[id-1]
 		}
