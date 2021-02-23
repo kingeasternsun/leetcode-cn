@@ -1,4 +1,13 @@
-package main
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2020-07-01 12:44:30
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-23 16:17:45
+ * @FilePath: \74\74_test.go
+ */
+package leetcode
 
 import "testing"
 

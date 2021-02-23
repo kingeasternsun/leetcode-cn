@@ -1,4 +1,13 @@
-package main
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2020-07-01 12:44:30
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-02-23 16:01:47
+ * @FilePath: \34\34_test.go
+ */
+package leetcode
 
 import (
 	"reflect"
@@ -22,6 +31,7 @@ func Test_searchRange(t *testing.T) {
 		{name: "14", args: args{nums: []int{8}, target: 8}, want: []int{0, 0}},
 		{name: "15", args: args{nums: []int{8, 8}, target: 8}, want: []int{0, 1}},
 		{name: "16", args: args{nums: []int{8, 8, 8}, target: 8}, want: []int{0, 2}},
+		{name: "3", args: args{nums: []int{8, 8, 9}, target: 8}, want: []int{0, 1}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

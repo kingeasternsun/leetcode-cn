@@ -1,30 +1,46 @@
-package main
+package leetcode
 
 // 240. 搜索二维矩阵 II
-import "fmt"
+import (
+	"fmt"
+)
 
-// 另外一个思路 从右上角开始查询，target更大，往下走，target更小，往左走
-/*
-func main() {
-	// fmt.Println(searchSlice([]int{1}, 1))
-	// fmt.Println(searchSlice([]int{1}, 2))
-	// fmt.Println(searchSlice([]int{1, 2}, 1))
-	// fmt.Println(searchSlice([]int{1, 2}, 3))
-	// fmt.Println(searchSlice([]int{1, 2}, 0))
+//从右上角开始查询，target更大，往下走，target更小，往左走
+func searchMatrix(matrix [][]int, target int) bool {
 
-	var m [][]int
-	m=[][]int{
-		{1,   4,  7, 11, 15},
-		{2,   5,  8, 12, 19},
-		{3,   6,  9, 16, 22},
-		{10, 13, 14, 17, 24},
-		{18, 21, 23, 26, 30},
+	rows := len(matrix)
+	if rows == 0 {
+		return false
 	}
 
-	fmt.Println(searchMatrix(m,5))
+	cols := len(matrix[0])
+	if cols == 0 {
+		return false
+	}
+
+	x := 0
+	y := cols - 1
+	for y >= 0 && x < rows {
+
+		if matrix[x][y] == target {
+			return true
+		}
+
+		if matrix[x][y] > target {
+			y-- //左移动
+		} else {
+			x++ //下走
+		}
+	}
+
+	return false
 
 }
-*/
+
+type Point struct {
+	row, col int
+}
+
 func searchSlice(a []int, target int) bool {
 
 	if len(a) == 0 {
@@ -62,61 +78,6 @@ func searchSlice(a []int, target int) bool {
 	}
 
 }
-
-func searchMatrix(matrix [][]int, target int) bool {
-
-	// if len(matrix) == 0 {
-	// 	return false
-	// }
-
-	// return search(matrix,Point{0,0},Point{row:len(matrix)-1,col:len(matrix[0])-1},target)
-	return searchMatrix2(matrix, target)
-
-}
-
-func searchMatrix2(matrix [][]int, target int) bool {
-	maxRow := len(matrix)
-	if maxRow == 0 {
-		return false
-	}
-	maxCol := len(matrix[0])
-
-	if maxCol == 0 {
-		return false
-	}
-
-	row := 0
-	col := maxCol - 1
-
-	for {
-
-		fmt.Printf("%v %v\n", row, col)
-		if matrix[row][col] == target {
-			return true
-		}
-
-		if target > matrix[row][col] {
-			if row == maxRow-1 {
-				return false
-			}
-
-			row = row + 1
-			continue
-		}
-
-		if col == 0 {
-			return false
-		}
-
-		col = col - 1
-
-	}
-}
-
-type Point struct {
-	row, col int
-}
-
 func search(matrix [][]int, beg, end Point, target int) bool {
 
 	fmt.Printf("%+v %+v\n", beg, end)

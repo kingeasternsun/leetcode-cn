@@ -1,4 +1,4 @@
-package main
+package leetcode
 
 // https://leetcode-cn.com/problems/search-a-2d-matrix/submissions/
 
@@ -74,7 +74,7 @@ func searchMatrix1(matrix [][]int, target int) bool {
 }
 
 // 二维数组虚拟为一维数组
-func searchMatrix(matrix [][]int, target int) bool {
+func searchMatrix2(matrix [][]int, target int) bool {
 
 	row := len(matrix)
 	if row == 0 {
@@ -115,4 +115,37 @@ func searchMatrix(matrix [][]int, target int) bool {
 	}
 
 	return false
+}
+
+// 二维数组虚拟为一维数组
+func searchMatrix(matrix [][]int, target int) bool {
+
+	row := len(matrix)
+	if row == 0 {
+		return false
+	}
+
+	col := len(matrix[0])
+	if col == 0 {
+		return false
+	}
+
+	beg := 0
+	end := row*col - 1
+	for beg <= end {
+
+		mid := (end-beg)/2 + beg
+
+		if matrix[mid/col][mid%col] == target {
+			return true
+		}
+		if matrix[mid/col][mid%col] > target {
+			end = mid - 1
+		} else {
+			beg = mid + 1
+		}
+
+	}
+	return false
+
 }
