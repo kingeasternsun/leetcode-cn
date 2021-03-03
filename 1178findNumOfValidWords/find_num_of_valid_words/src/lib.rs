@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-03-03 16:38:41
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-03-03 17:47:27
+ * @LastEditTime: 2021-03-03 17:56:31
  * @FilePath: \1178findNumOfValidWords\find_num_of_valid_words\src\lib.rs
  */
 pub struct Solution;
@@ -60,7 +60,44 @@ impl Solution {
     }
 }
 
+/*
+TODO learn
+impl Solution {
+    pub fn find_num_of_valid_words(words: Vec<String>, puzzles: Vec<String>) -> Vec<i32> {
+        let mut res = Vec::new();
 
+        let mut words_set = vec![0; (2 as usize).pow(27) - 1];
+        for word in words {
+            let mut pos = 0;
+            for c in word.chars() {
+                pos |= 1 << (c as usize - 'a' as usize);
+            }
+            words_set[pos] += 1;
+        }
+
+        for puzzle in puzzles {
+            let mut count = 0;
+            let mut pos = 0;
+            let head = puzzle.chars().nth(0).unwrap();
+            for c in puzzle.chars().skip(1) {
+                pos |= 1 << (c as usize - 'a' as usize)
+            }
+            let mut sub = pos;
+            loop {
+                sub = (sub - 1) & pos;
+                count += words_set[sub + (1 << (head as usize - 'a' as usize))];
+                if sub == pos {
+                    break;
+                }
+            }
+            res.push(count)
+        }
+
+        res
+    }
+}
+
+*/
 /*
 10110
 
