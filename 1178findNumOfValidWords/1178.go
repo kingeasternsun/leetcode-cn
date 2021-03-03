@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-02-26 14:56:32
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-02-26 16:03:54
+ * @LastEditTime: 2021-03-03 16:25:59
  * @FilePath: \1178findNumOfValidWords\1178.go
  */
 package leetcode
@@ -48,10 +48,10 @@ func findNum(puzzles []byte, bitMap uint32, totalNum *int, m map[uint32]int) {
 		return
 	}
 
-	//puzzles[0]对应bit是0
+	//不包含puzzles[0],即puzzles[0]对应bit是0
 	findNum(puzzles[1:], bitMap, totalNum, m)
 
-	//puzzles[0]对应bit是0
+	//包含puzzles[0],即puzzles[0]对应bit是1
 	bitMap |= (1 << (puzzles[0] - 'a'))
 	findNum(puzzles[1:], bitMap, totalNum, m)
 	bitMap ^= (1 << (puzzles[0] - 'a')) //异或 清零
