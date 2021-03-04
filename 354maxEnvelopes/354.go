@@ -1,18 +1,15 @@
-package main
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2020-11-14 11:41:01
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-03-04 09:42:25
+ * @FilePath: \354maxEnvelopes\354.go
+ */
+package leetcode
 
 import "sort"
-
-func main() {
-
-	a := [][]int{
-		[]int{5, 4},
-		[]int{6, 4},
-		[]int{6, 7},
-		[]int{2, 3},
-	}
-
-	maxEnvelopes(a)
-}
 
 //dp
 /*
@@ -62,6 +59,7 @@ func maxEnvelopesdp(envelopes [][]int) int {
 
 }
 
+// 通过提前对信封按照 某一个方向排序，变为求最大递增子序列的问题
 func maxEnvelopes(envelopes [][]int) int {
 
 	if len(envelopes) <= 1 {
@@ -69,41 +67,28 @@ func maxEnvelopes(envelopes [][]int) int {
 	}
 
 	sort.Slice(envelopes, func(i, j int) bool {
-
+		//如果宽度w相同，那么两个就不能互相套进去，所以这里要把高度h大的放在前面。
+		//不然的话，就有可能造成把宽度w相同，h小的装进h大的信封里面
 		if envelopes[i][0] == envelopes[j][0] {
 			return envelopes[i][1] > envelopes[j][1]
 		}
 
 		return envelopes[i][0] < envelopes[j][0]
-
 	})
 
-	// https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-she-ji-fang-fa-zhi-pai-you-xi-jia/
+	//接下来，就根据各个信封的h构成的数组中，查找最大的递增子序列,
+	//转为 300 https://leetcode-cn.com/problems/longest-increasing-subsequence/
+	hs := []int{}
+	for _, v := range envelopes {
 
-	top := make([]int, 0)
-
-	for _, ev := range envelopes {
-
-		start := 0
-		end := len(top)
-		for start < end {
-			mid := (start + end) / 2
-			if top[mid] < ev[1] { //这里注意是 小于 ，表面我们是要搜索 大于等于 ev[1]的元素
-				start = mid + 1
-			} else {
-				end = mid
-			}
-
-		}
-
-		if start == len(top) {
-			top = append(top, ev[1])
+		id := sort.SearchInts(hs, v[1])
+		if id == len(hs) {
+			hs = append(hs, v[1])
 		} else {
-			top[start] = ev[1]
+			hs[id] = v[1]
 		}
-
 	}
 
-	return len(top)
+	return len(hs)
 
 }
