@@ -1,4 +1,13 @@
-package main
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2020-07-01 12:44:30
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-03-05 11:22:11
+ * @FilePath: \155min-stack\155.go
+ */
+package leetcode
 
 /*
 statck 先入后出，也就是右边添加，从右边剔除
