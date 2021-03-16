@@ -1,10 +1,15 @@
-package main
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Author: kingeasternsun
+ * @Date: 2020-07-01 11:11:03
+ * @LastEditors: kingeasternsun
+ * @LastEditTime: 2021-03-16 14:29:24
+ * @FilePath: /125isPalindrome/125.go
+ */
+package leetcode
 
 import "strings"
-
-func main() {
-	isPalindrome("race a car")
-}
 
 func isPalindrome(s string) bool {
 
