@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-01-24 16:17:56
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-04-08 22:32:53
+ * @LastEditTime: 2021-04-08 22:50:46
  * @FilePath: /153findMin/153.go
  */
 
@@ -49,7 +49,8 @@ func findMin1(nums []int) int {
 
 }
 
-func findMin(nums []int) int {
+//0ms
+func findMin2(nums []int) int {
 	if len(nums) == 0 {
 		return -1
 	}
@@ -76,6 +77,43 @@ func findMin(nums []int) int {
 		}
 
 		end = mid
+
+	}
+
+	return nums[beg]
+
+}
+
+//4ms
+func findMin(nums []int) int {
+	if len(nums) == 0 {
+		return -1
+	}
+
+	//如果最后一个比第一个要大，说明是递增的
+	if nums[len(nums)-1] > nums[0] {
+		return nums[0]
+	}
+
+	beg := 0
+	end := len(nums) - 1
+	for beg < end {
+
+		if nums[beg] < nums[end] {
+			return nums[beg]
+		}
+
+		mid := (end-beg)/2 + beg
+		if nums[mid] > nums[end] {
+			beg = mid + 1
+			continue
+		}
+
+		if mid == 0 || nums[mid-1] > nums[mid] {
+			return nums[mid]
+		}
+
+		end = mid - 1
 
 	}
 
