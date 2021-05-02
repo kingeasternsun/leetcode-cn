@@ -4,7 +4,7 @@
  * @Author: kingeasternsun
  * @Date: 2021-05-02 20:40:37
  * @LastEditors: kingeasternsun
- * @LastEditTime: 2021-05-02 20:59:24
+ * @LastEditTime: 2021-05-02 21:13:17
  * @FilePath: /least-bricks/src/lib.rs
  */
 pub struct Solution;
@@ -27,6 +27,8 @@ impl Solution {
                 max_cnt = *val;
             }
         }
+
+        let max_cnt = len_map.values().into_iter().max().unwrap_or(&0);
 
         wall.len() as i32 - max_cnt
 
