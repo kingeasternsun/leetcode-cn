@@ -11,13 +11,11 @@ pub fn detect_capital_use(word: String) -> bool {
         return true
     }
 
-    let mut word1 = word.chars();
-    if word1.all(|x|x.is_lowercase()){
+    if word.chars().all(|x|x.is_lowercase()){
         return true 
     }
 
-    let mut word1 = word.chars();
-    if word1.all(|x|x.is_uppercase()){
+    if word.chars().all(|x|x.is_uppercase()){
         return true 
     }
 
