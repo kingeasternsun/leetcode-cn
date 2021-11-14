@@ -19,14 +19,10 @@ pub fn detect_capital_use(word: String) -> bool {
         return true 
     }
 
-    let mut word1 = word.chars();
-    let first_word = word1.next().unwrap();
-    if first_word.is_lowercase(){
-        return false
-    }
-    if word1.all(|x|x.is_lowercase()){
+    if word.chars().enumerate().all(|(id,x)|if id == 0{x.is_uppercase()} else{x.is_lowercase()}){
         return true 
     }
+    
 
     false
 
