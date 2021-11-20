@@ -14,7 +14,7 @@ impl Solution {
                     res = v2 + v1;
                 }
             }
-            if let Some(v2) = h.get(&(k1 + 1)) {
+            if let Some(v2) = h.get(&(k1 - 1)) {
                 if v2 + v1 > res {
                     res = v2 + v1;
                 }
