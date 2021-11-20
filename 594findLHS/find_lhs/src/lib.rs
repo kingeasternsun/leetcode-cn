@@ -2,13 +2,18 @@ pub struct Solution;
 impl Solution {
     pub fn find_lhs(nums: Vec<i32>) -> i32 {
         // use hash to get each item count
-        let mut h = std::collections::BTreeMap::new();
+        let mut h = std::collections::HashMap::new();
         for v in nums {
             *h.entry(v).or_insert(0) += 1;
         }
 
         let mut res = 0;
         for (k1, v1) in h.iter() {
+            if let Some(v2) = h.get(&(k1 + 1)) {
+                if v2 + v1 > res {
+                    res = v2 + v1;
+                }
+            }
             if let Some(v2) = h.get(&(k1 + 1)) {
                 if v2 + v1 > res {
                     res = v2 + v1;
