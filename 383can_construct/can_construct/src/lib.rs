@@ -17,6 +17,31 @@ impl Solution {
         true
     }
 }
+
+mod leet383 {
+    struct Solution;
+    impl Solution {
+        pub fn can_construct(ransom_note: String, magazine: String) -> bool {
+            let mut m = vec![0u32; 26];
+            magazine
+                .as_bytes()
+                .iter()
+                .for_each(|x| m[(x - b'a') as usize] = m[(x - b'a') as usize] + 1);
+
+            ransom_note
+                .as_bytes()
+                .iter()
+                .try_for_each(|x| {
+                    if m[(x - b'a') as usize] == 0 {
+                        return None;
+                    }
+                    m[(x - b'a') as usize] = m[(x - b'a') as usize] - 1;
+                    Some(())
+                })
+                .is_some()
+        }
+    }
+}
 #[cfg(test)]
 mod tests {
     use crate::Solution;
