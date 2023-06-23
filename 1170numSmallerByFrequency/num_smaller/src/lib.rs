@@ -1,3 +1,10 @@
+/*
+ * @Author: kingeasternsun kingeasternsun@gmail.com
+ * @Date: 2023-06-10 17:41:18
+ * @LastEditors: kingeasternsun kingeasternsun@gmail.com
+ * @LastEditTime: 2023-06-23 16:40:55
+ * @FilePath: /num_smaller/src/lib.rs
+ */
 use std::{iter::Iterator, result::Result::Ok, vec::Vec};
 
 pub struct Solution;
@@ -48,7 +55,7 @@ impl Solution {
     //             let query_frequency = get_num_frequency(query);
     //             let id = word_ret.partition_point(|&x|x<=query_frequency);
     //             word_ret.len() as i32 - id as i32
-                
+
     //         })
     //         .collect()
     // }
