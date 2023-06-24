@@ -1,3 +1,4 @@
+
 struct Solution;
 impl Solution {
     pub fn max_sum_div_three1(nums: Vec<i32>) -> i32 {
@@ -28,6 +29,7 @@ impl Solution {
         if sum % 3 == 1 {
             let r1 = mod1.first();
             let r2 = mod2.chunks_exact(2).next().map(|x| x[0] + x[1]);
+            // let r2 = mod2.first_chunk::<2>().map(|x| x[0] + x[1]);
 
             return match (r1, r2) {
                 (Some(n1), Some(n2)) => (sum - n1).max(sum - n2),

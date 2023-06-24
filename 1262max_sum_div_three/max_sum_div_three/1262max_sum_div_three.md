@@ -37,8 +37,8 @@ let r2 = mod2.chunks_exact(2).next().map(|x| x[0] + x[1]);
     assert!(iter.next().is_none());
 ```
 
-更高级的用法
+更高级的用法,使用 first_chunk， 但是这个需要开启 `![feature(slice_first_last_chunk)]`
 ```Rust
 
-
+let r2 = mod2.first_chunk::<2>().map(|x| x[0] + x[1]);
 ```
