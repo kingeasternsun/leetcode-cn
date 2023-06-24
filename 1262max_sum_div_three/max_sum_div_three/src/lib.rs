@@ -1,4 +1,3 @@
-
 struct Solution;
 impl Solution {
     pub fn max_sum_div_three1(nums: Vec<i32>) -> i32 {
@@ -28,10 +27,7 @@ impl Solution {
 
         if sum % 3 == 1 {
             let r1 = mod1.first();
-            let r2: Option<i32> = match mod2.len() {
-                2 => Some(mod2[0] + mod2[1]),
-                _ => None,
-            };
+            let r2 = mod2.chunks_exact(2).next().map(|x| x[0] + x[1]);
 
             return match (r1, r2) {
                 (Some(n1), Some(n2)) => (sum - n1).max(sum - n2),
@@ -42,10 +38,7 @@ impl Solution {
         }
 
         if sum % 3 == 2 {
-            let r1: Option<i32> = match mod1.len() {
-                2 => Some(mod1[0] + mod1[1]),
-                _ => None,
-            };
+            let r1: Option<i32> = mod1.chunks_exact(2).next().map(|x| x[0] + x[1]);
             let r2 = mod2.first();
 
             return match (r1, r2) {
@@ -62,7 +55,7 @@ impl Solution {
     pub fn max_sum_div_three(nums: Vec<i32>) -> i32 {
         // note: the init i32::MIN is import
         let ret = nums.iter().fold([0, i32::MIN, i32::MIN], |sum, &item| {
-            let mut tmp = [0,0,0];
+            let mut tmp = [0, 0, 0];
             for i in 0..3 {
                 let newid = ((i + item) % 3) as usize;
                 tmp[newid] = sum[newid].max(sum[i as usize] + item);
@@ -75,14 +68,14 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    // #[test]
-    // fn it_works() {
-    //     use crate::Solution;
-    //     assert_eq!(Solution::max_sum_div_three1(vec![3, 6, 5, 1, 8]), 18);
-    //     assert_eq!(Solution::max_sum_div_three1(vec![3, 6, 5, 1, 9]), 24);
-    //     assert_eq!(Solution::max_sum_div_three1(vec![4]), 0);
-    //     assert_eq!(Solution::max_sum_div_three1(vec![3]), 3);
-    // }
+    #[test]
+    fn it_works() {
+        use crate::Solution;
+        assert_eq!(Solution::max_sum_div_three1(vec![3, 6, 5, 1, 8]), 18);
+        assert_eq!(Solution::max_sum_div_three1(vec![3, 6, 5, 1, 9]), 24);
+        assert_eq!(Solution::max_sum_div_three1(vec![4]), 0);
+        assert_eq!(Solution::max_sum_div_three1(vec![3]), 3);
+    }
     #[test]
     fn dp_works() {
         use crate::Solution;
