@@ -28,13 +28,12 @@ impl Solution {
         res
     }
 
-    //
     pub fn max_subarray_sum_circular2(nums: Vec<i32>) -> i32 {
         if nums.len() == 0 {
             return 0;
         }
 
-        let sum:i32 = nums.iter().sum();
+        let sum: i32 = nums.iter().sum();
 
         let mut max_sub_sum = nums[0];
         let mut pre_max_sum = nums[0]; // the max subarray sum that end with id
@@ -51,12 +50,46 @@ impl Solution {
         }
 
         // NOTE: ATTENTION: which means all the num is negative values,
-        if max_sub_sum < 0{
+        if max_sub_sum < 0 {
             max_sub_sum
-        }else{
+        } else {
             max_sub_sum.max(sum - min_sub_sum)
         }
-       
+    }
+
+    // life is hard, we can use iterator 
+    pub fn max_subarray_sum_circular3(nums: Vec<i32>) -> i32 {
+        if nums.len() == 0 {
+            return 0;
+        }
+
+        let sum: i32 = nums.iter().sum();
+
+        let mut pre_max_sum = -1; // the max subarray sum that end with id
+
+        let mut pre_min_sum = 1; // the min subarray sum that end with id
+
+        let max_sub_sum = nums
+            .iter()
+            .map(|&x| {
+                pre_max_sum = x.max(pre_max_sum + x);
+                pre_max_sum
+            })
+            .max()
+            .unwrap();
+        if max_sub_sum < 0 {
+            return max_sub_sum;
+        }
+
+        let min_sub_sum = nums
+            .iter()
+            .map(|&x| {
+                pre_min_sum = x.min(pre_min_sum + x);
+                pre_min_sum
+            })
+            .min()
+            .unwrap();
+        max_sub_sum.max(sum - min_sub_sum)
     }
 }
 
@@ -66,6 +99,19 @@ mod tests {
 
     #[test]
     fn it_works() {
+        assert_eq!(Solution::max_subarray_sum_circular(vec![-1]), -1);
+        assert_eq!(Solution::max_subarray_sum_circular(vec![-1, -2]), -1);
+
+        assert_eq!(Solution::max_subarray_sum_circular(vec![1]), 1);
+        assert_eq!(Solution::max_subarray_sum_circular(vec![1, 2]), 3);
+        assert_eq!(Solution::max_subarray_sum_circular(vec![1, 2, 3]), 6);
+
+        assert_eq!(Solution::max_subarray_sum_circular(vec![5, -3, 5]), 10);
+        assert_eq!(Solution::max_subarray_sum_circular(vec![3, -2, 2, -3]), 3);
+    }
+
+    #[test]
+    fn it_works2() {
         assert_eq!(Solution::max_subarray_sum_circular2(vec![-1]), -1);
         assert_eq!(Solution::max_subarray_sum_circular2(vec![-1, -2]), -1);
 
@@ -78,15 +124,15 @@ mod tests {
     }
 
     #[test]
-    fn it_works2() {
-        assert_eq!(Solution::max_subarray_sum_circular(vec![-1]), -1);
-        assert_eq!(Solution::max_subarray_sum_circular(vec![-1, -2]), -1);
+    fn it_works3() {
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![-1]), -1);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![-1, -2]), -1);
 
-        assert_eq!(Solution::max_subarray_sum_circular(vec![1]), 1);
-        assert_eq!(Solution::max_subarray_sum_circular(vec![1, 2]), 3);
-        assert_eq!(Solution::max_subarray_sum_circular(vec![1, 2, 3]), 6);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![1]), 1);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![1, 2]), 3);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![1, 2, 3]), 6);
 
-        assert_eq!(Solution::max_subarray_sum_circular(vec![5, -3, 5]), 10);
-        assert_eq!(Solution::max_subarray_sum_circular(vec![3, -2, 2, -3]), 3);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![5, -3, 5]), 10);
+        assert_eq!(Solution::max_subarray_sum_circular3(vec![3, -2, 2, -3]), 3);
     }
 }
