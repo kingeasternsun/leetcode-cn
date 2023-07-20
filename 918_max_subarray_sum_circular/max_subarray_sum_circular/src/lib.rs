@@ -50,7 +50,7 @@ impl Solution {
             min_sub_sum = min_sub_sum.min(pre_min_sum);
         }
 
-        // which means all the num is negative values,
+        // NOTE: ATTENTION: which means all the num is negative values,
         if max_sub_sum < 0{
             max_sub_sum
         }else{
