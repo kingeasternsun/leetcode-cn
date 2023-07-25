@@ -37,7 +37,7 @@ impl Solution {
         ret
     }
     pub fn robot_sim2(commands: Vec<i32>, obstacles: Vec<Vec<i32>>) -> i32 {
-        // the beauty of iterator
+        // the beauty ofc iterator
         let obs_set = obstacles
             .iter()
             .map(|x| (x[0], x[1]))
