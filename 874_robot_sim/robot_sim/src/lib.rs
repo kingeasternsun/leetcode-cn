@@ -37,7 +37,7 @@ impl Solution {
         ret
     }
     pub fn robot_sim2(commands: Vec<i32>, obstacles: Vec<Vec<i32>>) -> i32 {
-        // the beauty ofc iterator
+        // the beauty of iterator
         let obs_set = obstacles
             .iter()
             .map(|x| (x[0], x[1]))
@@ -83,6 +83,10 @@ mod tests {
             Solution::robot_sim(vec![4, -1, 4, -2, 4], vec![vec![2, 4]]),
             65
         );
+        assert_eq!(
+        Solution::robot_sim(vec![-2,8,3,7,-1], vec![vec![[-4,-1],vec![1,-1],vec![1,4],vec![5,0],vec![4,5],vec![-2,-1],vec![2,-5],vec![5,1],vec![-3,-1],[vec!5,-3]]]),
+        65);
+        //
     }
 
     #[test]
@@ -92,5 +96,8 @@ mod tests {
             Solution::robot_sim2(vec![4, -1, 4, -2, 4], vec![vec![2, 4]]),
             65
         );
+        assert_eq!(
+            Solution::robot_sim2(vec![-2,8,3,7,-1], vec![vec![[-4,-1],vec![1,-1],vec![1,4],vec![5,0],vec![4,5],vec![-2,-1],vec![2,-5],vec![5,1],vec![-3,-1],[vec!5,-3]]]),
+            65);
     }
 }

@@ -9,13 +9,13 @@ type MaxHeap struct {
 func (m *MaxHeap) Len() int           { return len(m.nums) }
 func (m *MaxHeap) Less(i, j int) bool { return m.nums[j] < m.nums[i] } // Because we need MaxHeap
 func (m *MaxHeap) Swap(i, j int)      { m.nums[i], m.nums[j] = m.nums[j], m.nums[i] }
-func (m *MaxHeap) Pop() any {
+func (m *MaxHeap) Pop() interface{} {
 	n := m.nums[m.Len()-1]
 	m.nums = m.nums[:m.Len()-1]
 	return n
 }
 
-func (m *MaxHeap) Push(n any) {
+func (m *MaxHeap) Push(n interface{}) {
 	m.nums = append(m.nums, n.(float64))
 }
 
