@@ -14,6 +14,7 @@ impl Ord for Float64 {
 impl Solution {
     pub fn halve_array(nums: Vec<i32>) -> i32 {
         let mut ret = 0;
+        // NOTE: the sum of the nums maybe overflow, so we need to convert it to f64 when sum
         let sum: f64 = nums.iter().map(|&x| x as f64).sum();
         let half_sum = sum / 2.0;
         let mut remove_sum = 0_f64;
