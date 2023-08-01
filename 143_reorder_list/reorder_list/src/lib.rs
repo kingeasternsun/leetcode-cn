@@ -1,5 +1,21 @@
 struct Solution;
 
+// https://www.youtube.com/watch?v=6c7pZYP_iIE
+#[derive(Debug,Default)]
+pub struct Widget(Option<Box<i32>>);
+impl Widget {
+    pub fn data_b(&self)->Option<&i32>{
+        self.0.as_deref()
+    }
+
+}
+
+fn i_need_ownership(data: Option<&i32>){
+    let _:Option<i32> = data.map(ToOwned::to_owned);
+    let _:Option<i32> = data.cloned();
+    let _:Option<i32> = data.copied();
+}
+
 #[derive(PartialEq, Eq, Debug, Clone)]
 pub struct ListNode {
     pub val: i32,
