@@ -12,6 +12,7 @@ impl Solution {
     // 我们把这个最小值和最小值的2倍从双倍数组中移除，剩下的数组肯定也是双倍数组
     // 算法：每次移除最小值和对应的double值
     // 使用 排序 和 HashMap
+    // 注意点： 0 的 2倍 也是 0
     pub fn find_original_array(mut changed: Vec<i32>) -> Vec<i32> {
         if changed.len() & 1 == 1 {
             return vec![];
