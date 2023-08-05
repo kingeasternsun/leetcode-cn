@@ -3,6 +3,7 @@ struct Solution;
 use std::cmp::Ordering::{Greater, Less};
 use std::collections::HashMap;
 impl Solution {
+    // 376ms 6.5mb
     pub fn max_taxi_earnings(n: i32, mut rides: Vec<Vec<i32>>) -> i64 {
         // 首先根据每个乘客的终点位置排序
         rides.sort_unstable_by(|a, b| a[1].cmp(&b[1]));
