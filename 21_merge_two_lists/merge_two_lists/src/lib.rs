@@ -15,7 +15,7 @@ impl ListNode {
 struct Solution;
 
 impl Solution {
-    // 0ms 2.1MB
+    // 递归1：0ms 2.1MB
     pub fn merge_two_lists0(
         list1: Option<Box<ListNode>>,
         list2: Option<Box<ListNode>>,
@@ -38,7 +38,8 @@ impl Solution {
         };
     }
 
-    // 4ms 2.1MB
+    // https://github.com/kingeasternsun/leetcode-cn/tree/master/21_merge_two_lists/merge_two_lists
+    // 递归2：4ms 2.1MB
     pub fn merge_two_lists2(
         list1: Option<Box<ListNode>>,
         list2: Option<Box<ListNode>>,
@@ -59,7 +60,7 @@ impl Solution {
         };
     }
 
-    // 0ms 2.0MB
+    // 迭代1： 0ms 2.0MB
     pub fn merge_two_lists3(
         list1: Option<Box<ListNode>>,
         list2: Option<Box<ListNode>>,
@@ -90,8 +91,8 @@ impl Solution {
         }
     }
 
-     // 0ms 2.0MB
-     pub fn merge_two_lists(
+    // 迭代2： 0ms 1.9MB
+    pub fn merge_two_lists(
         list1: Option<Box<ListNode>>,
         list2: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
@@ -101,22 +102,19 @@ impl Solution {
         let mut cur2 = list2;
 
         loop {
-            match (cur1, cur2) {
-                (Some(mut node1), Some(mut node2)) => {
-                    if node1.val <= node2.val {
-                        cur1 = node1.next.take();
-                        cur2 = Some(node2);
-                        cur = &mut cur.insert(node1).next; // 这个神来之笔
-                    } else {
-                        cur1 = Some(node1);
-                        cur2 = node2.next.take();
-                        cur = &mut cur.insert(node2).next; // 这个神来之笔
-                    }
+            if cur1.is_some() && cur2.is_some() {
+                if cur1.as_ref().unwrap().val < cur2.as_ref().unwrap().val {
+                    let mut node1 = cur1.unwrap();
+                    cur1 = node1.next.take();
+                    cur = &mut cur.insert(node1).next;
+                } else {
+                    let mut node2 = cur2.unwrap();
+                    cur2 = node2.next.take();
+                    cur = &mut cur.insert(node2).next;
                 }
-                (x, y) => {
-                    *cur = x.or(y); // 这个 or 的用法牛逼
-                    return head;
-                }
+            } else {
+                *cur = cur1.or(cur2); // 这个 or 的用法牛逼
+                return head;
             }
         }
     }
