@@ -66,14 +66,14 @@ mod tests {
 
     #[test]
     fn it_works0() {
-        assert_eq!(Solution::check0(vec![3, 4, 5, 1, 2]), true);
-        assert_eq!(Solution::check0(vec![2, 1, 3, 4]), false);
-        assert_eq!(Solution::check0(vec![1, 2, 3]), true);
-        assert_eq!(Solution::check0(vec![1, 2]), true);
-        assert_eq!(Solution::check0(vec![2, 1]), true);
-        assert_eq!(Solution::check0(vec![6, 10, 6]), true);
-        assert_eq!(Solution::check0(vec![6, 6, 10]), true);
-        assert_eq!(Solution::check0(vec![10, 6, 6]), true);
-        assert_eq!(Solution::check0(vec![6, 6, 6]), true);
+        assert_eq!(Solution::check1(vec![3, 4, 5, 1, 2]), true);
+        assert_eq!(Solution::check1(vec![2, 1, 3, 4]), false);
+        assert_eq!(Solution::check1(vec![1, 2, 3]), true);
+        assert_eq!(Solution::check1(vec![1, 2]), true);
+        assert_eq!(Solution::check1(vec![2, 1]), true);
+        assert_eq!(Solution::check1(vec![6, 10, 6]), true);
+        assert_eq!(Solution::check1(vec![6, 6, 10]), true);
+        assert_eq!(Solution::check1(vec![10, 6, 6]), true);
+        assert_eq!(Solution::check1(vec![6, 6, 6]), true);
     }
 }
