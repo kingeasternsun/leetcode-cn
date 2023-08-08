@@ -2,7 +2,7 @@ struct Solution;
 
 impl Solution {
     // 找到拐点，也就是第一个递减的元素，从这个位置再判断是否单调非递减
-    // beauty of iterator
+    // beauty of iterator 0ms 1.96mb
     pub fn check(nums: Vec<i32>) -> bool {
         use std::ops::ControlFlow;
         let r = nums.windows(2).enumerate().try_for_each(|(n, x)| {
@@ -62,5 +62,18 @@ mod tests {
         assert_eq!(Solution::check(vec![6, 6, 10]), true);
         assert_eq!(Solution::check(vec![10, 6, 6]), true);
         assert_eq!(Solution::check(vec![6, 6, 6]), true);
+    }
+
+    #[test]
+    fn it_works0() {
+        assert_eq!(Solution::check0(vec![3, 4, 5, 1, 2]), true);
+        assert_eq!(Solution::check0(vec![2, 1, 3, 4]), false);
+        assert_eq!(Solution::check0(vec![1, 2, 3]), true);
+        assert_eq!(Solution::check0(vec![1, 2]), true);
+        assert_eq!(Solution::check0(vec![2, 1]), true);
+        assert_eq!(Solution::check0(vec![6, 10, 6]), true);
+        assert_eq!(Solution::check0(vec![6, 6, 10]), true);
+        assert_eq!(Solution::check0(vec![10, 6, 6]), true);
+        assert_eq!(Solution::check0(vec![6, 6, 6]), true);
     }
 }
