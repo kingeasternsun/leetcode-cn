@@ -1,15 +1,25 @@
 struct Solution;
 
 impl Solution {
-    // 找到最小值，然后从最小值开始判断是否非递减
+    // 找到拐点，也就是第一个递减的元素，从这个位置再判断是否单调非递减
     pub fn check(nums: Vec<i32>) -> bool {
-        let min = nums.iter().enumerate().min_by_key(|x| x.1).unwrap();
-        let mut pre = min.1.clone();
-        for i in 0..nums.len() {
-            if nums[(min.0 + i) % nums.len()] < pre {
+        // 找到拐点
+        let mut min = 0;
+        for i in 1..nums.len() {
+            if nums[i] < nums[i - 1] {
+                min = i;
+                break;
+            }
+        }
+
+        if min == 0 {
+            return true;
+        }
+
+        for i in min..nums.len() {
+            if nums[i] > nums[(i + 1) % nums.len()] {
                 return false;
             }
-            pre = nums[(min.0 + i) % nums.len()]
         }
 
         true
@@ -27,5 +37,9 @@ mod tests {
         assert_eq!(Solution::check(vec![1, 2, 3]), true);
         assert_eq!(Solution::check(vec![1, 2]), true);
         assert_eq!(Solution::check(vec![2, 1]), true);
+        assert_eq!(Solution::check(vec![6, 10, 6]), true);
+        assert_eq!(Solution::check(vec![6, 6, 10]), true);
+        assert_eq!(Solution::check(vec![10, 6, 6]), true);
+        assert_eq!(Solution::check(vec![6, 6, 6]), true);
     }
 }
