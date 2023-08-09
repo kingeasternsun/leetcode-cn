@@ -10,10 +10,8 @@ pub struct TreeNode {
 }
 
 impl Solution {
-
     pub fn rob(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        
-        Self::dp(root.clone(),true)
+        Self::dp(root.clone(), true)
     }
 
     // 由于二叉树无法像数组那样直接跳到孙子节点，所以只能一级一级跳，通过一个can_rob 标识当前节点是否要跳过
@@ -28,15 +26,19 @@ impl Solution {
 
         if !skip {
             // rob cur
-            let ret1= cur.as_ref().borrow().val + Self::dp(cur.as_ref().borrow().left.clone(), true) + Self::dp(cur.as_ref().borrow().right.clone(),true);
+            let ret1 = cur.borrow().val
+                + Self::dp(cur.borrow().left.clone(), true)
+                + Self::dp(cur.borrow().right.clone(), true);
 
             // not rob cur
-            let ret0 =  Self::dp(cur.as_ref().borrow().left.clone(), false) + Self::dp(cur.as_ref().borrow().right.clone(),false);
+            let ret0 = Self::dp(cur.borrow().left.clone(), false)
+                + Self::dp(cur.borrow().right.clone(), false);
             return ret1.max(ret0);
         }
 
         // can not rob cur
-        return Self::dp(cur.as_ref().borrow().left.clone(), false) + Self::dp(cur.as_ref().borrow().right.clone(),false);
+        return Self::dp(cur.borrow().left.clone(), false)
+            + Self::dp(cur.borrow().right.clone(), false);
     }
 }
 
