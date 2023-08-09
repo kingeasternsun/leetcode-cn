@@ -1,6 +1,7 @@
 struct Solution;
 impl Solution {
     // 把要求 group大小 一样的人聚集在一起，再根据group大小 分组
+    // LC: 0ms 2.3mb
     pub fn group_the_people(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
         let mut group_map = vec![vec![]; 501];
         group_sizes.iter().enumerate().for_each(|x| {
@@ -21,6 +22,7 @@ impl Solution {
     }
 
     // 优化版本1, 当 人数已经可以构成一组后就加入到 ret 中，而不是等全部分类完成后再分组
+    // LC: 4ms 2.1mb
     pub fn group_the_people1(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
         let mut group_map = vec![vec![]; 501];
         let mut ret = vec![];
@@ -36,6 +38,7 @@ impl Solution {
     }
 
     // 优化版本2, 通过 std::mem::replace 零拷贝 优化
+    // LC: 0ms 2.2mb
     pub fn group_the_people2(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
         let mut group_map = vec![vec![]; 501];
         let mut ret = vec![];
