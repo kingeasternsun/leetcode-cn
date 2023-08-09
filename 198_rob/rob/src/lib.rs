@@ -48,6 +48,7 @@ impl Solution {
         ret1.max(ret2)
     }
 
+    // 4ms 1.92mb
     pub fn rob2(nums: Vec<i32>) -> i32 {
         if nums.len()==1{
             return nums[0]
