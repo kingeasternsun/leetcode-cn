@@ -18,6 +18,20 @@ impl Solution {
 
         ret
     }
+
+    pub fn group_the_people1(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut group_map = vec![vec![]; 501];
+        let mut ret = vec![];
+        group_sizes.iter().enumerate().for_each(|(id, &g_size)| {
+            group_map[g_size as usize].push(id as i32);
+            if group_map[g_size as usize].len() == g_size as usize {
+                ret.push(group_map[g_size as usize].clone());
+                group_map[g_size as usize].clear();
+            }
+        });
+
+        ret
+    }
 }
 
 #[cfg(test)]
@@ -35,5 +49,18 @@ mod tests {
             Solution::group_the_people(vec![2, 1, 3, 3, 3, 2]),
             vec![vec![1], vec![0, 5], vec![2, 3, 4]]
         );
+    }
+
+    #[test]
+    fn it_works1() {
+        // assert_eq!(
+        //     Solution::group_the_people1(vec![3, 3, 3, 3, 3, 1, 3]),
+        //     vec![vec![5], vec![0, 1, 2], vec![3, 4, 6]]
+        // );
+
+        // assert_eq!(
+        //     Solution::group_the_people1(vec![2, 1, 3, 3, 3, 2]),
+        //     vec![vec![1], vec![0, 5], vec![2, 3, 4]]
+        // );
     }
 }
