@@ -14,7 +14,7 @@ impl Solution {
 
     // dp[i]: 表示从第i户开始偷
     // dp[i] = max(dp[i+1], nums[i] + dp[i+2])
-    / LC: 0ms 2mb
+    // LC: 0ms 2mb
     fn dp(nums: &[i32]) -> i32 {
         if nums.len() == 0 {
             return 0;
