@@ -14,6 +14,7 @@ impl Solution {
 
     // dp[i]: 表示从第i户开始偷
     // dp[i] = max(dp[i+1], nums[i] + dp[i+2])
+    / LC: 0ms 2mb
     fn dp(nums: &[i32]) -> i32 {
         if nums.len() == 0 {
             return 0;
@@ -26,7 +27,6 @@ impl Solution {
 
         for i in (0..nums.len() - 1).rev() {
             let cur = a1.max(nums[i] + a2);
-            println!("{},{},{}", cur, a1, a2);
             a2 = a1;
             a1 = cur;
         }
