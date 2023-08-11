@@ -3,14 +3,15 @@ struct Solution;
 impl Solution {
     // 统计'1'的个数，然后看是否可以被3整除
     // 如果可以被3整除，假设得到m
+    // 要把字符串分割为包含相同'1'个数的三个子字符串，只能在 m 个'1'和 m+1 个'1'之间切割，以及 2m,2m+1 个'1'之间切割
     // 那么根据第 m,m+1 个'1'所在的索引，以及 2m,2m+1 个'1'所在的索引就可以算出来
+    // 4ms 2.17mb
     pub fn num_ways(s: String) -> i32 {
         let bytes = s.as_bytes();
         let num1 = bytes.iter().filter(|&x| *x == b'1').count();
         if num1 == 0 {
-            return ((bytes.len() - 1) * (bytes.len() - 2) / 2 % 1000000007)
-                .try_into()
-                .unwrap();
+            let ret = (bytes.len() - 1) * (bytes.len() - 2) / 2 % 1000000007;
+            return ret as i32;
         }
 
         if num1 % 3 > 0 {
@@ -44,9 +45,8 @@ impl Solution {
 
         // println!("{:?}{:?}", first, second);
 
-        ((first.1 - first.0) * (second.1 - second.0) % 1000000007)
-            .try_into()
-            .unwrap()
+        let ret = (first.1 - first.0) * (second.1 - second.0) % 1000000007;
+        return ret as i32;
     }
 }
 
