@@ -27,7 +27,7 @@ impl PartialOrd for ListNode {
 }
 
 impl Solution {
-    // 8ms 3.15mb
+    // 4ms 2.96mb
     pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
         if lists.len() == 0 {
             return None;
