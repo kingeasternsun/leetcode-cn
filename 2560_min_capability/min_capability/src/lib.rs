@@ -9,6 +9,7 @@ impl Solution {
         min_cap
     }
 
+    // 超时
     fn dp(nums: &[i32], k: usize, max_cap: i32, min_cap: &mut i32) {
         if k == 1 {
             match nums.iter().min() {

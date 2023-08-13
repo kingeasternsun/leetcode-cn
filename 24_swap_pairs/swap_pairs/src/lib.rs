@@ -15,7 +15,7 @@ impl ListNode {
 struct Solution;
 
 impl Solution {
-    // 0ms 1.88mb
+    // 迭代: 0ms 1.88mb
     pub fn swap_pairs0(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut ret = None;
         let mut pre_next = &mut ret; // the & mut of the next field belongs to pre node
@@ -37,7 +37,7 @@ impl Solution {
         ret
     }
 
-    // 0ms 2.21mb
+    // 迭代: 0ms 2.21mb
     pub fn swap_pairs1(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut cur = head;
         let mut pre = ListNode::new(0);
@@ -60,14 +60,30 @@ impl Solution {
         return pre.next;
     }
 
-    // 0ms 2.01mb
-    pub fn swap_pairs(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    // 递归: 0ms 2.01mb
+    pub fn swap_pairs2(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         if let Some(mut node1) = head {
             match node1.next.take() {
                 None => return Some(node1),
                 Some(mut node2) => {
                     node1.next = Self::swap_pairs(node2.next.take());
                     node2.next = Some(node1);
+                    return Some(node2);
+                }
+            }
+        }
+
+        return None;
+    }
+
+
+    // 递归: 0ms 1.90mb
+    pub fn swap_pairs(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        if let Some(mut node1) = head {
+            match node1.next.take() {
+                None => return Some(node1),
+                Some(mut node2) => {
+                    node2.next.insert(node1).next = Self::swap_pairs(node2.next.take());
                     return Some(node2);
                 }
             }
