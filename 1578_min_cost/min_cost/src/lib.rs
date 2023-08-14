@@ -53,18 +53,21 @@ impl Solution {
 
     // the beauty of iterator
     pub fn min_cost2(colors: String, needed_time: Vec<i32>) -> i32 {
-        let bytes = colors.as_bytes();
         let mut needed_time = needed_time;
-        bytes.windows(2).enumerate().fold(0, |acc, (i, win)| {
-            if win[0] == win[1] {
-                if needed_time[i] > needed_time[i + 1] {
-                    needed_time.swap(i, i + 1);
+        colors
+            .as_bytes()
+            .windows(2)
+            .enumerate()
+            .fold(0, |acc, (i, win)| {
+                if win[0] == win[1] {
+                    if needed_time[i] > needed_time[i + 1] {
+                        needed_time.swap(i, i + 1);
+                    }
+                    acc + needed_time[i]
+                } else {
+                    acc
                 }
-                acc + needed_time[i]
-            } else {
-                acc
-            }
-        })
+            })
     }
 }
 
