@@ -10,7 +10,8 @@ pub struct TreeNode {
 
 struct Solution;
 impl Solution {
-    pub fn merge_trees(
+    // TODO: in leetcode, report: "already borrowed: BorrowMutError"
+    pub fn merge_trees0(
         root1: Option<Rc<RefCell<TreeNode>>>,
         root2: Option<Rc<RefCell<TreeNode>>>,
     ) -> Option<Rc<RefCell<TreeNode>>> {
@@ -26,7 +27,8 @@ impl Solution {
             _ => root1.or(root2),
         }
     }
-    pub fn merge_trees0(
+    // 4ms 2.2MB
+    pub fn merge_trees(
         root1: Option<Rc<RefCell<TreeNode>>>,
         root2: Option<Rc<RefCell<TreeNode>>>,
     ) -> Option<Rc<RefCell<TreeNode>>> {
@@ -48,6 +50,7 @@ impl Solution {
         }
     }
 
+    // TODO: in leetcode, report: "already borrowed: BorrowMutError"
     pub fn merge_trees1(
         root1: Option<Rc<RefCell<TreeNode>>>,
         root2: Option<Rc<RefCell<TreeNode>>>,
