@@ -15,6 +15,22 @@ impl Solution {
         root2: Option<Rc<RefCell<TreeNode>>>,
     ) -> Option<Rc<RefCell<TreeNode>>> {
         match (root1.clone(), root2.clone()) {
+            (Some(r1), Some(r2)) => Some(Rc::new(RefCell::new(TreeNode {
+                val: r1.borrow().val + r2.borrow().val,
+                left: Self::merge_trees(r1.borrow_mut().left.take(), r2.borrow_mut().left.take()),
+                right: Self::merge_trees(
+                    r1.borrow_mut().right.take(),
+                    r2.borrow_mut().right.take(),
+                ),
+            }))),
+            _ => root1.or(root2),
+        }
+    }
+    pub fn merge_trees0(
+        root1: Option<Rc<RefCell<TreeNode>>>,
+        root2: Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        match (root1.clone(), root2.clone()) {
             (Some(r1), Some(r2)) => {
                 let r1_child_left = r1.borrow_mut().left.take();
                 let r1_child_right = r1.borrow_mut().right.take();
