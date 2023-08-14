@@ -33,6 +33,7 @@ impl Solution {
         ret
     }
 
+    // 对于连续的重复颜色的气球，只需要将移除时间最大的气球之外的气球移除即可
     // 利用冒泡法，求出连续重复颜色的气球中除了移除时间最大的气球之外的气球移除时间之和
     pub fn min_cost1(colors: String, needed_time: Vec<i32>) -> i32 {
         let mut ret = 0;
@@ -48,6 +49,22 @@ impl Solution {
         }
 
         ret
+    }
+
+    // the beauty of iterator
+    pub fn min_cost2(colors: String, needed_time: Vec<i32>) -> i32 {
+        let bytes = colors.as_bytes();
+        let mut needed_time = needed_time;
+        bytes.windows(2).enumerate().fold(0, |acc, (i, win)| {
+            if win[0] == win[1] {
+                if needed_time[i] > needed_time[i + 1] {
+                    needed_time.swap(i, i + 1);
+                }
+                acc + needed_time[i]
+            } else {
+                acc
+            }
+        })
     }
 }
 
@@ -139,6 +156,50 @@ mod tests {
         );
         assert_eq!(
             Solution::min_cost1(String::from("aaab"), vec![3, 1, 2, 3]),
+            3
+        );
+    }
+
+    #[test]
+    fn it_works2() {
+        assert_eq!(
+            Solution::min_cost2(String::from("abaac"), vec![1, 2, 3, 4, 5]),
+            3
+        );
+        assert_eq!(Solution::min_cost2(String::from("abc"), vec![1, 2, 3]), 0);
+        assert_eq!(
+            Solution::min_cost2(String::from("aabaa"), vec![1, 2, 3, 4, 1]),
+            2
+        );
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![1, 2, 3]), 3);
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![1, 3, 2]), 3);
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![2, 1, 3]), 3);
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![2, 3, 1]), 3);
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![3, 2, 1]), 3);
+        assert_eq!(Solution::min_cost2(String::from("aaa"), vec![3, 1, 2]), 3);
+
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![1, 2, 3, 3]),
+            3
+        );
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![1, 3, 2, 3]),
+            3
+        );
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![2, 1, 3, 3]),
+            3
+        );
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![2, 3, 1, 3]),
+            3
+        );
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![3, 2, 1, 3]),
+            3
+        );
+        assert_eq!(
+            Solution::min_cost2(String::from("aaab"), vec![3, 1, 2, 3]),
             3
         );
     }
