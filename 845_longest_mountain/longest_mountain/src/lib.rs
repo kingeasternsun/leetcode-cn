@@ -7,7 +7,11 @@ enum Direction {
 }
 
 impl Solution {
+    // 0ms 1.98mb
     pub fn longest_mountain(arr: Vec<i32>) -> i32 {
+        if arr.len() < 3 {
+            return 0;
+        }
         let mut ret = 0;
         let mut pre_dir = Direction::Equal;
         let mut pre_len = 0;
@@ -37,7 +41,7 @@ impl Solution {
                     if x[0] < x[1] {
                         // 到达山谷，开始爬新的山
                         ret = ret.max(pre_len);
-                        pre_len = 0;
+                        pre_len = 2;
                         pre_dir = Direction::Up;
                     } else if x[0] == x[1] {
                         ret = ret.max(pre_len);
@@ -77,5 +81,10 @@ mod tests {
         assert_eq!(Solution::longest_mountain(vec![2, 2, 1]), 0);
         assert_eq!(Solution::longest_mountain(vec![2, 4]), 0);
         assert_eq!(Solution::longest_mountain(vec![2, 1]), 0);
+        assert_eq!(Solution::longest_mountain(vec![1, 2]), 0);
+        assert_eq!(
+            Solution::longest_mountain(vec![875, 884, 239, 731, 723, 685]),
+            4
+        );
     }
 }
