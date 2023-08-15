@@ -1,6 +1,7 @@
 struct Solution;
 impl Solution {
     // BFS 把每个房间当做树中节点
+    // 0ms 1.94mb
     pub fn can_visit_all_rooms(rooms: Vec<Vec<i32>>) -> bool {
         let mut queue = std::collections::VecDeque::new();
         let mut room_map = vec![false; rooms.len()];

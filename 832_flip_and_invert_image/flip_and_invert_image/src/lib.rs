@@ -1,5 +1,6 @@
 struct Solution;
 impl Solution {
+    // 0ms 2.05mb
     pub fn flip_and_invert_image(image: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let mut image = image;
         image.iter_mut().for_each(|row| {
