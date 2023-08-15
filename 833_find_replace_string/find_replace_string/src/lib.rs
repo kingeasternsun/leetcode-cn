@@ -42,6 +42,7 @@ impl Solution {
 
         values.sort_unstable_by_key(|k| k.id);
 
+        // 如果存在两个替换的索引冲突了
         if values
             .windows(2)
             .any(|x| x[0].id + x[0].source.len() - 1 >= x[1].id)
@@ -93,6 +94,7 @@ impl Solution {
 
         values.sort_unstable_by_key(|k| k.id);
 
+        // 如果存在两个替换的索引冲突了
         if values
             .windows(2)
             .any(|x| x[0].id + x[0].source.len() - 1 >= x[1].id)
