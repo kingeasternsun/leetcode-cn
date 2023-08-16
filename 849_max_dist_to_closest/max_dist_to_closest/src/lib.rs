@@ -1,5 +1,6 @@
 struct Solution;
 impl Solution {
+    // 4ms 2.2MB
     pub fn max_dist_to_closest(seats: Vec<i32>) -> i32 {
         let seat_len = seats.len();
         let mut ret = 0;
