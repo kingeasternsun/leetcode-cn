@@ -4,7 +4,7 @@ impl Solution {
         let mut iter = 1;
         let mut cur_friend = 1;
         let mut friends = vec![false; n as usize + 1];
-        friends[1 % n as usize] = true;
+        friends[1] = true;
         loop {
             cur_friend = (cur_friend + iter * k) % n;
             if cur_friend == 0 {
@@ -36,7 +36,7 @@ impl Solution {
         let mut iter = 1;
         let mut cur_friend = 1;
         let mut friends = vec![false; n];
-        friends[1%n] = true;
+        friends[1 % n] = true;
         loop {
             cur_friend = (cur_friend + iter * k) % n;
 
