@@ -5,6 +5,7 @@ impl Solution {
         let mut ret = Vec::new();
         let mut a_bytes = a.into_bytes();
         let mut b_bytes = b.into_bytes();
+        // 这里很重要，必须两个都先旋转，才能两个字符串都先从低位相加
         a_bytes.reverse();
         b_bytes.reverse();
         let max_len = a_bytes.len().max(b_bytes.len());
