@@ -12,25 +12,13 @@ impl Solution {
     ├──────────────┼──────────────┘
     │(row+1,col-1) │
     └──────────────┘
-
-        从上又可以推断出，
-        第0列中只有 dp[0][0]可达
-        第1列中只有 dp[1][0]和dp[1][1]可达
-        第2列中只有 dp[2][0]到dp[2][2]可达
-        依次类推
-        第i列中只有 dp[i][0]到dp[i][i]可达
          */
+        // 32ms 3.3MB
     pub fn max_moves(grid: Vec<Vec<i32>>) -> i32 {
         let mut ret = 0;
         let mut dp = vec![vec![0; 2]; grid.len()];
         for col in 1..grid[0].len() {
             let pre_col = (col - 1) & 1;
-            // if dp[0][pre_col] >= 0 && grid[0][col] > grid[0][col - 1] {
-            //     dp[0][col & 1] = dp[0][pre_col] + 1;
-            // } else {
-            //     dp[0][col & 1] = -1;
-            // }
-
             for row in 0..grid.len() {
                 dp[row][col & 1] = -1; // 很重要
                 if row >= 1 && dp[row - 1][pre_col] >= 0 && grid[row][col] > grid[row - 1][col - 1]
