@@ -22,10 +22,17 @@ impl Solution {
          */
     pub fn max_moves(grid: Vec<Vec<i32>>) -> i32 {
         let mut ret = 0;
-        let mut dp = vec![vec![0; grid.len()]; 2];
+        let mut dp = vec![vec![0; 2]; grid.len()];
         for col in 1..grid[0].len() {
             let pre_col = (col - 1) & 1;
+            if dp[0][pre_col] >= 0 && grid[0][col] > grid[0][col - 1] {
+                dp[0][col & 1] = dp[0][pre_col] + 1;
+            } else {
+                dp[0][col & 1] = -1;
+            }
+
             for row in 1..grid.len() {
+                dp[row][col & 1] = -1;
                 if dp[row - 1][pre_col] >= 0 && grid[row][col] > grid[row - 1][col - 1] {
                     dp[row][col & 1] = dp[row][col & 1].max(dp[row - 1][pre_col] + 1);
                 }
@@ -34,7 +41,10 @@ impl Solution {
                     dp[row][col & 1] = dp[row][col & 1].max(dp[row][pre_col] + 1);
                 }
 
-                if dp[row + 1][pre_col] >= 0 && grid[row][col] > grid[row + 1][col - 1] {
+                if (row + 1) <= grid.len() - 1
+                    && dp[row + 1][pre_col] >= 0
+                    && grid[row][col] > grid[row + 1][col - 1]
+                {
                     dp[row][col & 1] = dp[row][col & 1].max(dp[row + 1][pre_col] + 1);
                 }
 
@@ -46,14 +56,25 @@ impl Solution {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        assert_eq!(
+            Solution::max_moves(vec![
+                vec![2, 4, 3, 5],
+                vec![5, 4, 9, 3],
+                vec![3, 4, 2, 11],
+                vec![10, 9, 13, 15]
+            ]),
+            3
+        );
+
+        assert_eq!(
+            Solution::max_moves(vec![vec![3, 2, 4], vec![2, 1, 9], vec![1, 1, 7]]),
+            0
+        );
     }
 }
