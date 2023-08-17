@@ -32,7 +32,7 @@ impl Solution {
             }
 
             for row in 1..grid.len() {
-                dp[row][col & 1] = -1;
+                dp[row][col & 1] = -1; // 很重要
                 if dp[row - 1][pre_col] >= 0 && grid[row][col] > grid[row - 1][col - 1] {
                     dp[row][col & 1] = dp[row][col & 1].max(dp[row - 1][pre_col] + 1);
                 }
