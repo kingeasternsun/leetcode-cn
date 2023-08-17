@@ -1,6 +1,7 @@
 struct Solution;
 impl Solution {
     // 找第一个突破口 然后逐个反向逆推
+    // 52ms 3.1mb
     pub fn does_valid_array_exist(derived: Vec<i32>) -> bool {
         // derived[i] = origin[i] ^ origin[i+1] 所以  origin[i+1] = derived[i] ^ origin[i]
         // origin[0] 无非为0 或 1， 分别尝试反向逆推即可
