@@ -25,15 +25,16 @@ impl Solution {
         let mut dp = vec![vec![0; 2]; grid.len()];
         for col in 1..grid[0].len() {
             let pre_col = (col - 1) & 1;
-            if dp[0][pre_col] >= 0 && grid[0][col] > grid[0][col - 1] {
-                dp[0][col & 1] = dp[0][pre_col] + 1;
-            } else {
-                dp[0][col & 1] = -1;
-            }
+            // if dp[0][pre_col] >= 0 && grid[0][col] > grid[0][col - 1] {
+            //     dp[0][col & 1] = dp[0][pre_col] + 1;
+            // } else {
+            //     dp[0][col & 1] = -1;
+            // }
 
-            for row in 1..grid.len() {
+            for row in 0..grid.len() {
                 dp[row][col & 1] = -1; // 很重要
-                if dp[row - 1][pre_col] >= 0 && grid[row][col] > grid[row - 1][col - 1] {
+                if row >= 1 && dp[row - 1][pre_col] >= 0 && grid[row][col] > grid[row - 1][col - 1]
+                {
                     dp[row][col & 1] = dp[row][col & 1].max(dp[row - 1][pre_col] + 1);
                 }
 
@@ -75,6 +76,11 @@ mod tests {
         assert_eq!(
             Solution::max_moves(vec![vec![3, 2, 4], vec![2, 1, 9], vec![1, 1, 7]]),
             0
+        );
+
+        assert_eq!(
+            Solution::max_moves(vec![vec![137, 112, 78, 67], vec![76, 65, 122, 135]]),
+            3
         );
     }
 }
