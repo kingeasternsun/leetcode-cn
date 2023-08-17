@@ -1,5 +1,6 @@
 struct Solution;
 impl Solution {
+    // 4ms 2.2mb
     pub fn ways(pizza: Vec<String>, k: i32) -> i32 {
         let k = k as usize;
         let col_num = pizza[0].as_bytes().len();
@@ -29,7 +30,7 @@ impl Solution {
             }
         }
 
-        let ret = Self::dp(0, 0, k, col_num, row_num, &sum, &mut cache);
+        let ret = Self::dp(0, 0, k, row_num, col_num, &sum, &mut cache);
         (ret % 1000000007) as i32
     }
 
@@ -37,8 +38,8 @@ impl Solution {
         row: usize,
         col: usize,
         k: usize,
-        col_num: usize,
         row_num: usize,
+        col_num: usize,
         sum: &Vec<Vec<usize>>,
         cache: &mut Vec<Vec<Vec<i32>>>,
     ) -> i32 {
@@ -57,33 +58,33 @@ impl Solution {
             return 1;
         }
 
-        let mut total = 0;
+        let mut total = 0_i64;
         // 尝试横着切
         for row_id in row + 1..row_num {
             if sum[row][col] - sum[row_id][col] > 0 {
-                let ret = Self::dp(row_id, col, k - 1, col_num, row_num, sum, cache);
+                let ret = Self::dp(row_id, col, k - 1, row_num, col_num, sum, cache);
                 if ret == 0 {
                     // 已经不够分了，再往下切就更不够分了
                     break;
                 }
-                total += ret;
+                total += ret as i64;
             }
         }
 
         // 尝试竖着切
         for col_id in col + 1..col_num {
-            if sum[row][col] - sum[row][col + 1] > 0 {
-                let ret = Self::dp(row, col_id, k - 1, col_num, row_num, sum, cache);
+            if sum[row][col] - sum[row][col_id] > 0 {
+                let ret = Self::dp(row, col_id, k - 1, row_num, col_num, sum, cache);
                 if ret == 0 {
                     // 已经不够分了，再往右切就更不够分了
                     break;
                 }
-                total += ret;
+                total += ret as i64;
             }
         }
-
-        cache[row][col][k] = total;
-        return total;
+        total = total % 1000000007;
+        cache[row][col][k] = total as i32;
+        return total as i32;
     }
 }
 
