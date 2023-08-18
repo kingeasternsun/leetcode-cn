@@ -38,6 +38,7 @@ impl Solution {
         true
     }
 
+    // 32ms 4.7mb
     pub fn is_possible_divide1(nums: Vec<i32>, k: i32) -> bool {
         let k = k as usize;
         // 不能整除
