@@ -21,6 +21,7 @@ impl TreeNode {
 
 struct Solution;
 impl Solution {
+    // 24ms 6.7mb
     pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         let mut pre_max = i32::MIN;
         let mut cnt = 0;
@@ -28,15 +29,15 @@ impl Solution {
         cnt
     }
 
-    fn bfs(root: Option<Rc<RefCell<TreeNode>>>, mut pre_max: i32, cnt: &mut i32) {
+    fn dfs(root: Option<Rc<RefCell<TreeNode>>>, mut pre_max: i32, cnt: &mut i32) {
         if let Some(cur) = root {
             if cur.borrow().val >= pre_max {
                 *cnt = *cnt + 1;
                 pre_max = cur.borrow().val;
             }
 
-            Self::bfs(cur.borrow().left.clone(), pre_max, cnt);
-            Self::bfs(cur.borrow().left.clone(), pre_max, cnt);
+            Self::dfs(cur.borrow().left.clone(), pre_max, cnt);
+            Self::dfs(cur.borrow().right.clone(), pre_max, cnt);
         }
     }
 }
