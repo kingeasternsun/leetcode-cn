@@ -20,6 +20,7 @@ impl Solution {
         target
     }
 
+    // 0ms 2.1mb
     pub fn create_target_array2(nums: Vec<i32>, index: Vec<i32>) -> Vec<i32> {
         let mut target = vec![-1; nums.len()];
         let len = nums.len();
