@@ -1,5 +1,6 @@
 struct Solution;
 impl Solution {
+    // 0ms 1.9mb
     pub fn max_power(s: String) -> i32 {
         let mut ret = 1;
         let mut pre = None;
