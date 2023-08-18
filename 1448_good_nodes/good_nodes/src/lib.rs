@@ -25,7 +25,7 @@ impl Solution {
     pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         let mut pre_max = i32::MIN;
         let mut cnt = 0;
-        Self::bfs(root, pre_max, &mut cnt);
+        Self::dfs(root, pre_max, &mut cnt);
         cnt
     }
 
