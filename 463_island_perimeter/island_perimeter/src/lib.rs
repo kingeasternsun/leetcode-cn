@@ -17,7 +17,7 @@ impl Solution {
         while let Some(cur) = queue.pop_front() {
             for dir in dirs.iter() {
                 let new_point = (cur.0 + dir.0, cur.1 + dir.1);
-                // 方向 dir 是边界
+                // 方向 dir 是边界, 通俗来讲 就是往这个方向移动一格，掉到海里 或 出界
                 if new_point.0 < 0
                     || new_point.0 >= grid.len() as i32
                     || new_point.1 < 0
