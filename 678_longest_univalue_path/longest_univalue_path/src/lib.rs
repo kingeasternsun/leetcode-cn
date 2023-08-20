@@ -27,27 +27,28 @@ impl Solution {
     }
 
     // ret.0 表示节点的value, ret.1 表示以节点为起点的最大路径长度， ret.2 表示节点中的最大路径
-    fn dfs(root: Option<Rc<RefCell<TreeNode>>>) -> (i32, i32, i32) {
+    // 20ms 2.84mb
+    fn dfs(root: Option<Rc<RefCell<TreeNode>>>) -> (Option<i32>, i32, i32) {
         match root {
-            None => (-2000, 0, 0),
+            None => (None, 0, 0),
             Some(root) => {
                 let (left_val, left_len, left_max) = Self::dfs(root.borrow().left.clone());
                 let (right_val, right_len, right_max) = Self::dfs(root.borrow().right.clone());
 
                 let mut cur_total_len = 0;
                 let mut cur_len = 0;
-                if root.borrow().val == left_val {
+                if left_val.map_or(false, |v| v == root.borrow().val) {
                     cur_total_len += left_len + 1;
                     cur_len = cur_len.max(left_len + 1);
                 }
 
-                if root.borrow().val == right_val {
+                if right_val.map_or(false, |v| v == root.borrow().val) {
                     cur_total_len += right_len + 1;
                     cur_len = cur_len.max(right_len + 1);
                 }
 
                 return (
-                    root.borrow().val,
+                    Some(root.borrow().val),
                     cur_len,
                     cur_total_len.max(left_max).max(right_max),
                 );
