@@ -1,6 +1,6 @@
 struct Solution;
 impl Solution {
-    // 4ms 2.8mb
+    // 4ms 2.8mb  排序 加 滑动窗口
     pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
         if nums.len() < 2 {
             return nums.len() as i32;
@@ -9,8 +9,10 @@ impl Solution {
         let mut pre = None;
         let mut ret = 1;
         nums.sort_unstable();
+        // 滑动窗口
         nums.windows(2).for_each(|win| {
             if win[0] == win[1] {
+                // just do nothing
             } else if win[1] == win[0] + 1 {
                 match pre {
                     None => pre = Some(2),
