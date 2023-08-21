@@ -54,14 +54,14 @@ impl Solution {
                 (b'_', b'R') => match Self::last_r(&start, i.min(r_pos)) {
                     None => return false,
                     Some(id) => {
-                        start.swap(i, id);
+                        start.swap(i, id);// 模拟R向右移动
                         r_pos = id;
                     }
                 },
                 (b'L', b'_') => match Self::last_blank(&start, i.min(blank_pos)) {
                     None => return false,
                     Some(id) => {
-                        start.swap(i, id);
+                        start.swap(i, id); // 模拟L向左移动
                         blank_pos = id;
                     }
                 },
