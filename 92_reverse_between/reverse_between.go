@@ -20,17 +20,17 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	left_node := left_pre.Next
 	left_pre.Next = nil
 
-	right_pre := left_node
+	right_node := left_node
 	for i := 0; i < right-left; i++ {
-		right_pre = right_pre.Next
+		right_node = right_node.Next
 	}
 
-	right_node := right_pre.Next
-	right_pre.Next = nil
+	right_next_node := right_node.Next
+	right_node.Next = nil
 
 	tmpHead, tmpTail := reverse(left_node)
-	pre.Next = tmpHead
-	tmpTail.Next = right_node
+	left_pre.Next = tmpHead
+	tmpTail.Next = right_next_node
 
 	return pre.Next
 
