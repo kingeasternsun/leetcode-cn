@@ -11,15 +11,17 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 		return head
 	}
 
+	// pre->1->2->3->4->5
 	pre := &ListNode{Next: head}
+	left_pre := pre
 	for i := 0; i < left-1; i++ {
-		pre = pre.Next
+		left_pre = left_pre.Next
 	}
-	left_node := pre.Next
-	pre.Next = nil
+	left_node := left_pre.Next
+	left_pre.Next = nil
 
 	right_pre := left_node
-	for i := 0; i < right-left-1; i++ {
+	for i := 0; i < right-left; i++ {
 		right_pre = right_pre.Next
 	}
 
