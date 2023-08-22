@@ -26,9 +26,10 @@ impl Solution {
     pub fn majority_element(nums: Vec<i32>) -> i32 {
         let mut n = 0;
         let mut cnt = 0;
-        nums.into_iter().for_each(|x|{
+        nums.iter().for_each(|&x|{
             if cnt ==0{
                 n = x;
+                cnt = 1;
             }else if x ==n{
                 cnt +=1;
             }else{
@@ -38,7 +39,12 @@ impl Solution {
         if cnt ==0{
             return  -1;
         }
-        n
+        let num_len = nums.len();
+        cnt = nums.into_iter().filter(|&x|x==n).count();
+        if cnt > num_len/2{
+            return n
+        }
+        return -1
     }
 }
 
