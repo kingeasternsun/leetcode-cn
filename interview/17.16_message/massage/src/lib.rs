@@ -22,6 +22,24 @@ impl Solution {
         }
         dp.0.max(dp.1)
     }
+
+    pub fn majority_element(nums: Vec<i32>) -> i32 {
+        let mut n = 0;
+        let mut cnt = 0;
+        nums.into_iter().for_each(|x|{
+            if cnt ==0{
+                n = x;
+            }else if x ==n{
+                cnt +=1;
+            }else{
+                cnt -=1;
+            }
+        });
+        if cnt ==0{
+            return  -1;
+        }
+        n
+    }
 }
 
 #[cfg(test)]
