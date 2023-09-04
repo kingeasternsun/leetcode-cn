@@ -2,6 +2,7 @@ package eliminatemaximum
 
 import "sort"
 
+// 132ms 9.24mb
 func eliminateMaximum(dist []int, speed []int) int {
 	arriveTime := make([]int, len(dist))
 	for i := range dist {
