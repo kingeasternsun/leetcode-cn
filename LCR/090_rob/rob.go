@@ -32,3 +32,60 @@ func max(i, j int) int {
 	}
 	return i
 }
+
+func minEatingSpeed(piles []int, h int) int {
+	left := 1
+	right := piles[0]
+	for _, p := range piles {
+		if p > right {
+			right = p
+		}
+	}
+
+	for left < right {
+		mid := (right-left)/2 + left
+		if match(piles, h, mid) {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+	return left
+
+}
+
+func match(piles []int, h, k int) bool {
+	sum := 0
+	for _, p := range piles {
+		sum += p / k
+		if p%k > 0 {
+			sum++
+		}
+	}
+
+	return sum <= h
+}
+
+func singleNonDuplicate(nums []int) int {
+	left := 0
+	right := len(nums) - 1
+	for left < right {
+		mid := (right-left)/2 + left
+		if checkNonDup(nums, mid) {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+	return left
+
+}
+
+func checkNonDup(nums []int, i int) bool {
+	if i&1 == 1 {
+		return nums[i-1] != nums[i]
+	}
+
+	return nums[i] != nums[i+1]
+
+}
