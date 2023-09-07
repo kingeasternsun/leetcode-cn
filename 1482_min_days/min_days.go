@@ -53,15 +53,13 @@ func minDays(bloomDay []int, m int, k int) int {
 }
 
 // 1760
+// 120ms 8.86mb
 func minimumSize(nums []int, maxOperations int) int {
 
 	check := func(mid int) bool {
 		op := 0
 		for _, n := range nums {
-			op += n/mid - 1
-			if n%mid > 0 {
-				op += 1
-			}
+			op += (n - 1) / mid
 
 			if op > maxOperations {
 				return false
