@@ -81,7 +81,7 @@ func minimumSize(nums []int, maxOperations int) int {
 	left := 1
 	right := max
 	for left < right {
-		mid := (left-right)/2 + right
+		mid := (right-left)/2 + left
 		if check(mid) {
 			right = mid
 		} else {
